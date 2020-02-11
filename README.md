@@ -1,5 +1,4 @@
 ## Web Api Guidelines
-## Web Api Routes
 
 The default routing for the web api is set to [GET] https://localhost:44363/api/user.
 You can access directly the json data afte the project loads on the browser.                                                                       

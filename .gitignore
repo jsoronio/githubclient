@@ -232,3 +232,6 @@ _Pvt_Extensions
 **\bin\
 /XUnitTestProject/bin/Debug/*
 /XUnitTestProject/bin/*
+/.vs/GitHubClient/v16/.suo
+/XUnitTestProject/bin/Debug/netcoreapp3.1/appsettings.json
+/XUnitTestProject/obj/Debug/netcoreapp3.1/XUnitTestProject.csprojAssemblyReference.cache

@@ -230,3 +230,5 @@ _Pvt_Extensions
 .fake/
 
 **\bin\
+/XUnitTestProject/bin/Debug/*
+/XUnitTestProject/bin/*

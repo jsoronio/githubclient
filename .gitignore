@@ -26,3 +26,6 @@ Version.cpp
 *.pdb
 *.manifest
 *.cache
+/.vs/GitHubClient/v16/
+/XUnitTestProject/bin/
+/XUnitTestProject/obj/

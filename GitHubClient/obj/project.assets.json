@@ -7214,11 +7214,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JSoronio\\Documents\\Visual Studio 2019\\Projects\\GitHubClient\\GitHubClient\\GitHubClient.csproj",
+      "projectUniqueName": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient\\GitHubClient.csproj",
       "projectName": "GitHubClient",
-      "projectPath": "C:\\Users\\JSoronio\\Documents\\Visual Studio 2019\\Projects\\GitHubClient\\GitHubClient\\GitHubClient.csproj",
+      "projectPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient\\GitHubClient.csproj",
       "packagesPath": "C:\\Users\\JSoronio\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JSoronio\\Documents\\Visual Studio 2019\\Projects\\GitHubClient\\GitHubClient\\obj\\",
+      "outputPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

@@ -230,12 +230,7 @@ _Pvt_Extensions
 .fake/
 
 **\bin\
-/XUnitTestProject/bin/Debug/*
-/XUnitTestProject/bin/*
-/.vs/GitHubClient/v16/.suo
-/XUnitTestProject/bin/Debug/netcoreapp3.1/appsettings.json
-/XUnitTestProject/obj/Debug/netcoreapp3.1/XUnitTestProject.csprojAssemblyReference.cache
-/.vs/GitHubClient/v16/.suo
-/XUnitTestProject/bin/Debug/netcoreapp3.1/appsettings.json
-/XUnitTestProject/obj/Debug/netcoreapp3.1/XUnitTestProject.csproj.FileListAbsolute.txt
-/XUnitTestProject/obj/Debug/netcoreapp3.1/XUnitTestProject.csprojAssemblyReference.cache
+/.vs/
+/XUnitTestProject/obj/
+/XUnitTestProject/bin/
+

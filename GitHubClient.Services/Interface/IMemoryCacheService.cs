@@ -1,10 +1,8 @@
-﻿using GitHubClient.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace GitHubClient.Interface
+namespace GitHubClient.Services.Interface
 {
     public interface IMemoryCacheService
     {

@@ -1,5 +1,5 @@
 using GitHubClient.Controllers;
-using GitHubClient.Interface;
+using GitHubClient.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;

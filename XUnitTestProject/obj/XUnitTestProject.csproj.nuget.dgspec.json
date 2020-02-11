@@ -4,6 +4,148 @@
     "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\XUnitTestProject\\XUnitTestProject.csproj": {}
   },
   "projects": {
+    "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj",
+        "projectName": "GitHubClient.Models",
+        "projectPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj",
+        "packagesPath": "C:\\Users\\JSoronio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\JSoronio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Services\\GitHubClient.Services.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Services\\GitHubClient.Services.csproj",
+        "projectName": "GitHubClient.Services",
+        "projectPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Services\\GitHubClient.Services.csproj",
+        "packagesPath": "C:\\Users\\JSoronio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Services\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\JSoronio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj": {
+                "projectPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.Extensions.Http": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient\\GitHubClient.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -30,7 +172,14 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj": {
+                "projectPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Models\\GitHubClient.Models.csproj"
+              },
+              "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Services\\GitHubClient.Services.csproj": {
+                "projectPath": "C:\\Users\\JSoronio\\Documents\\Source\\githubclient\\GitHubClient.Services\\GitHubClient.Services.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

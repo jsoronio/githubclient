@@ -1,13 +1,12 @@
-﻿using GitHubClient.Interface;
+﻿using GitHubClient.Services.Interface;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace GitHubClient.Service
+namespace GitHubClient.Services
 {
     public class MemoryCacheService : IMemoryCacheService
     {
@@ -19,7 +18,7 @@ namespace GitHubClient.Service
         private string _endpoint = string.Empty;
         private int _slideDuration = 0;
 
-        public MemoryCacheService(IMemoryCache cache, IConfiguration configuration, ILogger<MemoryCacheService> logger) 
+        public MemoryCacheService(IMemoryCache cache, IConfiguration configuration, ILogger<MemoryCacheService> logger)
         {
             _cache = cache;
             _configuration = configuration;
@@ -45,8 +44,8 @@ namespace GitHubClient.Service
         public string Get(string key)
         {
             string val;
-            if (_cache.TryGetValue(key, out val)) 
-            { 
+            if (_cache.TryGetValue(key, out val))
+            {
                 return val;
             }
 

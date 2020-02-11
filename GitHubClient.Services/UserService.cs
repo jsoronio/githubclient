@@ -1,24 +1,17 @@
-﻿using GitHubClient.Interface;
-using GitHubClient.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Caching.Memory;
+﻿using GitHubClient.Models;
+using GitHubClient.Services.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
-namespace GitHubClient.Service
+namespace GitHubClient.Services
 {
     public class UserService : IUserService
     {
@@ -151,7 +144,8 @@ namespace GitHubClient.Service
             return userDetail;
         }
 
-        private UserCacheModel UserCacheMapping(UserDataDetailModel model) {
+        private UserCacheModel UserCacheMapping(UserDataDetailModel model)
+        {
             var userCache = new UserCacheModel();
             userCache.company = model.company;
             userCache.login = model.login;
@@ -200,7 +194,7 @@ namespace GitHubClient.Service
             return userCacheList.OrderBy(m => m.name).ToList();
         }
 
-        private async Task<List<UserCacheModel>> GetUsersFromMemoryCache() 
+        private async Task<List<UserCacheModel>> GetUsersFromMemoryCache()
         {
             var userCacheList = new List<UserCacheModel>();
             var loginList = _cacheService.Get(_key);
@@ -213,7 +207,7 @@ namespace GitHubClient.Service
             return userCacheList.OrderBy(m => m.name).ToList();
         }
 
-        private async Task<List<UserCacheModel>> GetUsersFromEntries(IList<string> logins) 
+        private async Task<List<UserCacheModel>> GetUsersFromEntries(IList<string> logins)
         {
             var userCacheList = new List<UserCacheModel>();
 
@@ -222,7 +216,7 @@ namespace GitHubClient.Service
             return userCacheList.OrderBy(m => m.name).ToList();
         }
 
-        private async Task<List<UserCacheModel>> GetUsersFromSource(List<string> source) 
+        private async Task<List<UserCacheModel>> GetUsersFromSource(List<string> source)
         {
             var userCacheList = new List<UserCacheModel>();
             var userList = new List<UserDataModel>();

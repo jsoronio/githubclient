@@ -37,11 +37,11 @@ Accessing Github's Api endpoint must provide Authorization Token to exceed beyon
     [GET] User Detail Api: https://api.github.com/users/{username}
 
     Request Format:
-      Authorization Token : 98d3c001fc8b5874dfdf28ba32d5e3e406b0a663
+      Authorization Token : b0eef13b462f91dbdbac64160669ea27b3d09802
       Request Headers:
         Accept : application/json
         User-Agent : localhost
         Cache-Control : no-cache
         Connection : keep-alive
-        Authorization: Bearer 98d3c001fc8b5874dfdf28ba32d5e3e406b0a663
+        Authorization: Bearer b0eef13b462f91dbdbac64160669ea27b3d09802
 ```

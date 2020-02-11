@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace GitHubClient.Models
 {
@@ -25,6 +24,5 @@ namespace GitHubClient.Models
         public string received_events_url { get; set; }
         public string type { get; set; }
         public string site_admin { get; set; }
-
     }
 }

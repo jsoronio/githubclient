@@ -412,3 +412,9 @@ C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\obj\Debug\netco
 C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\obj\Debug\netcoreapp3.1\XUnitTestProject.csproj.CopyComplete
 C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\obj\Debug\netcoreapp3.1\XUnitTestProject.dll
 C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\obj\Debug\netcoreapp3.1\XUnitTestProject.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
+C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\bin\Debug\netcoreapp3.1\GitHubClient.Models.dll
+C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\bin\Debug\netcoreapp3.1\GitHubClient.Services.dll
+C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\bin\Debug\netcoreapp3.1\GitHubClient.Models.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\XUnitTestProject\bin\Debug\netcoreapp3.1\GitHubClient.Services.pdb

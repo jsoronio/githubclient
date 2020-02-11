@@ -14,5 +14,15 @@
     <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GitHubClient.Models\GitHubClient.Models.csproj" />
+    <ProjectReference Include="..\GitHubClient.Services\GitHubClient.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Interface\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+
 
 </Project>

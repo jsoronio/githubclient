@@ -248,3 +248,10 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csproj.CopyComplete
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csprojAssemblyReference.cache
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Models.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Services.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Models.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Services.pdb

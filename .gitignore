@@ -7,6 +7,7 @@ bin/
 obj/
 Debug/
 Release/
+.vs/GitHubClient/v16/
 *.opensdf
 *.tlog
 *.log

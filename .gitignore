@@ -226,3 +226,4 @@ project.lock.json
 **/.vs/GitHubClient/v16/
 **/GitHubClient/obj/
 **/XUnitTestProject/obj/
+/GitHubClient/bin/

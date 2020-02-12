@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubClient", "GitHubClient\GitHubClient.csproj", "{A1420F46-64B7-4737-A017-FC83D8C00D12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTestProject", "XUnitTestProject\XUnitTestProject.csproj", "{2B966F84-3AB8-48D5-918E-F68C41F9405E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubClient.Models", "GitHubClient.Models\GitHubClient.Models.csproj", "{4650ACB3-2EF8-49E7-A2F2-DEA2A0A32551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubClient.Models", "GitHubClient.Models\GitHubClient.Models.csproj", "{4650ACB3-2EF8-49E7-A2F2-DEA2A0A32551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitHubClient.Services", "GitHubClient.Services\GitHubClient.Services.csproj", "{1E120F72-7863-4EAA-9E33-3320893E740C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubClient.Services", "GitHubClient.Services\GitHubClient.Services.csproj", "{1E120F72-7863-4EAA-9E33-3320893E740C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubClient.NUnitTests", "GitHubClient.NUnitTests\GitHubClient.NUnitTests.csproj", "{9CC4C092-3B56-460A-97DA-407E1095DCA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,6 @@ Global
 		{A1420F46-64B7-4737-A017-FC83D8C00D12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1420F46-64B7-4737-A017-FC83D8C00D12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1420F46-64B7-4737-A017-FC83D8C00D12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2B966F84-3AB8-48D5-918E-F68C41F9405E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2B966F84-3AB8-48D5-918E-F68C41F9405E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2B966F84-3AB8-48D5-918E-F68C41F9405E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2B966F84-3AB8-48D5-918E-F68C41F9405E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4650ACB3-2EF8-49E7-A2F2-DEA2A0A32551}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4650ACB3-2EF8-49E7-A2F2-DEA2A0A32551}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4650ACB3-2EF8-49E7-A2F2-DEA2A0A32551}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{1E120F72-7863-4EAA-9E33-3320893E740C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E120F72-7863-4EAA-9E33-3320893E740C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E120F72-7863-4EAA-9E33-3320893E740C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CC4C092-3B56-460A-97DA-407E1095DCA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CC4C092-3B56-460A-97DA-407E1095DCA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CC4C092-3B56-460A-97DA-407E1095DCA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CC4C092-3B56-460A-97DA-407E1095DCA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -147,11 +147,13 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.Razor.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Debug.dll
@@ -238,6 +240,11 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Models.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Services.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Models.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Services.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csprojAssemblyReference.cache
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\staticwebassets\GitHubClient.StaticWebAssets.Manifest.cache
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\staticwebassets\GitHubClient.StaticWebAssets.xml
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.MvcApplicationPartsAssemblyInfo.cs
@@ -248,10 +255,3 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csproj.CopyComplete
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.pdb
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csprojAssemblyReference.cache
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Http.dll
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Models.dll
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Services.dll
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Models.pdb
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\GitHubClient.Services.pdb

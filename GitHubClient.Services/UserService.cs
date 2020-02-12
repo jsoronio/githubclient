@@ -22,7 +22,8 @@ namespace GitHubClient.Services
 
         private string _key = string.Empty;
         private string _endpoint = string.Empty;
-        private int _slideDuration = 0;
+        private string _clientId = string.Empty;
+        private string _clientSecret = string.Empty;
         private int _maxUsers = 0;
 
         public UserService(IMemoryCacheService cacheService, IConfiguration configuration, IHttpClientFactory clientFactory, ILogger<UserService> logger)
@@ -32,8 +33,9 @@ namespace GitHubClient.Services
             _clientFactory = clientFactory;
             _logger = logger;
             _endpoint = _configuration["GitHub:UserEndPoint"];
+            _clientId = _configuration["GitHub:ClientId"];
+            _clientSecret = _configuration["GitHub:ClientSecret"];
             _key = _configuration["InMemoryCache:Key"];
-            _slideDuration = Convert.ToInt32(_configuration["InMemoryCache:ExpiresIn"]);
             _maxUsers = Convert.ToInt32(_configuration["GitHub:MaxUsers"]);
         }
 
@@ -70,12 +72,11 @@ namespace GitHubClient.Services
 
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
                 request.Headers.Add("Accept", "application/json");
                 request.Headers.Add("User-Agent", "localhost");
                 request.Headers.Add("Cache-Control", "no-cache");
                 request.Headers.Add("Connection", "keep-alive");
-                request.Headers.Add("Authorization", $"Bearer {_configuration["GitHub:AuthorizationToken"]}");
 
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
@@ -110,12 +111,11 @@ namespace GitHubClient.Services
 
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users/{login}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
                 request.Headers.Add("Accept", "application/json");
                 request.Headers.Add("User-Agent", "localhost");
                 request.Headers.Add("Cache-Control", "no-cache");
                 request.Headers.Add("Connection", "keep-alive");
-                request.Headers.Add("Authorization", $"Bearer {_configuration["GitHub:AuthorizationToken"]}");
 
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);

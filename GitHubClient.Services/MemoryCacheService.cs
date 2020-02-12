@@ -16,7 +16,8 @@ namespace GitHubClient.Services
 
         private string _key = string.Empty;
         private string _endpoint = string.Empty;
-        private int _slideDuration = 0;
+
+        public int SlideDuration { get; set; }
 
         public MemoryCacheService(IMemoryCache cache, IConfiguration configuration, ILogger<MemoryCacheService> logger)
         {
@@ -25,7 +26,7 @@ namespace GitHubClient.Services
             _logger = logger;
             _endpoint = _configuration["GitHub:UserEndPoint"];
             _key = _configuration["InMemoryCache:Key"];
-            _slideDuration = Convert.ToInt32(_configuration["InMemoryCache:ExpiresIn"]);
+            SlideDuration = Convert.ToInt32(_configuration["InMemoryCache:ExpiresIn"]);
         }
 
         public bool CheckExists(string key)
@@ -56,9 +57,11 @@ namespace GitHubClient.Services
         {
             if (key != _key)
             {
-                MemoryCacheEntryOptions cacheExpirationOptions = new MemoryCacheEntryOptions();
-                cacheExpirationOptions.AbsoluteExpiration = DateTime.Now.AddSeconds(_slideDuration);
-                cacheExpirationOptions.Priority = CacheItemPriority.Normal;
+                MemoryCacheEntryOptions cacheExpirationOptions = new MemoryCacheEntryOptions();  
+                cacheExpirationOptions.AbsoluteExpiration = DateTime.Now.AddSeconds(SlideDuration);
+                cacheExpirationOptions.SlidingExpiration = TimeSpan.FromSeconds(SlideDuration);
+                cacheExpirationOptions.RegisterPostEvictionCallback(TimeoutCallback, this);
+                //cacheExpirationOptions.Priority = CacheItemPriority.Normal;
 
                 _cache.Set(key, value, cacheExpirationOptions);
             }
@@ -66,6 +69,11 @@ namespace GitHubClient.Services
             {
                 _cache.Set(key, value);
             }
+        }
+
+        private static void TimeoutCallback(object key, object value, EvictionReason reason, object state)
+        {
+
         }
     }
 }

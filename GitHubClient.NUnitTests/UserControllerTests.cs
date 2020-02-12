@@ -1,61 +1,127 @@
 using GitHubClient.Controllers;
+using GitHubClient.Models;
+using GitHubClient.Services;
 using GitHubClient.Services.Interface;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace GitHubClient.NUnitTests
 {
     [TestFixture]
-    public class UserControllerTests
+    public class UserControllerTests 
     {
         private IMemoryCache _memCache;
-        private IConfiguration _config;
-        private IUserService _users;
+        private IConfiguration _configuration;
+        private IUserService _userService;
         private ILogger<UserController> _logger;
+        private UserController _userController;
 
         [SetUp]
-        public void Setup() {
-            _memCache = new Mock<IMemoryCache>().Object;
+        public void Setup() 
+        {
+            var relativeTargetProjectParentDir = "";
+            var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
+            var contentRoot = TestHelper.GetProjectPath(relativeTargetProjectParentDir, startupAssembly);
 
-            var myConfiguration = new Dictionary<string, string>
-            {
-                {"Key1", "Value1"},
-                {"Nested:Key1", "NestedValue1"},
-                {"Nested:Key2", "NestedValue2"}
-            };
-            var configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(myConfiguration)
-                .Build();
+            var configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(contentRoot)
+                .AddJsonFile("appsettings.json");
+
+            _configuration = configurationBuilder.Build();
+
+            var services = new ServiceCollection();
+            services.AddSingleton(_configuration);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IMemoryCacheService, MemoryCacheService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddControllers().AddNewtonsoftJson();
+            services.AddMemoryCache();
+            services.AddHttpClient();
+            services.AddRazorPages();
+
+            var serviceProvider = services.BuildServiceProvider();
+            _memCache = serviceProvider.GetService<IMemoryCache>();
+            _userService = serviceProvider.GetService<IUserService>();
+            _logger = serviceProvider.GetService<ILogger<UserController>>();
         }
 
         [Test]
-        public void CheckConfiguration() 
+        public void CheckGithubConfig() 
         {
-            var mockConfSection = new Mock<IConfigurationSection>();
-            mockConfSection.SetupGet(m => m[It.Is<string>(s => s == "default")]).Returns("mock value");
+            Assert.IsNotNull(_configuration["GitHub:ClientId"], "ClientId");
+            Assert.IsNotNull(_configuration["GitHub:ClientSecret"], "ClientSecret");
+            Assert.IsNotNull(_configuration["GitHub:AuthAccess"], "AuthAccess");
+            Assert.IsNotNull(_configuration["GitHub:MaxUsers"], "MaxUsers");
+            Assert.IsNotNull(_configuration["GitHub:UserEndPoint"], "UserEndPoint");
+        }
 
-            var mockConfiguration = new Mock<IConfiguration>();
-            mockConfiguration.Setup(a => a.GetSection(It.Is<string>(s => s == "ConnectionStrings"))).Returns(mockConfSection.Object);
+        [Test]
+        public void CheckInMemoryCacheConfig()
+        {
+            Assert.IsNotNull(_configuration["InMemoryCache:Key"], "Key");
+            Assert.IsNotNull(_configuration["InMemoryCache:ExpiresIn"], "ExpiresIn");
         }
 
         [Test]
         public async Task GetUsersAsync()
         {
-            var mockMemoryCache = new Mock<IMemoryCache>();
-            var mockConfig = new Mock<IConfiguration>();
-            var mockUserService = new Mock<IUserService>();
-            var mockLogger = new Mock<ILogger<UserController>>();
-            var controller = new UserController(mockMemoryCache.Object, mockConfig.Object, mockUserService.Object, mockLogger.Object);
+            _userController = new UserController(_memCache, _configuration, _userService, _logger);
 
-            var actionResult = await controller.Get();
+            var actionResult = await _userController.Get();
+            var okResult = actionResult as OkObjectResult;
+            var outputData = okResult.Value as List<UserCacheModel>;
 
-            Assert.IsInstanceOf<OkObjectResult>(actionResult);
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(10, outputData.Count);
+            Assert.AreEqual(200, okResult.StatusCode);
+        }
+
+        [Test]
+        [TestCase("mojombo")]
+        [TestCase("defunkt")]
+        [TestCase("pjhyett")]
+        public async Task GetUsersWithLogin(string login)
+        {
+            _userController = new UserController(_memCache, _configuration, _userService, _logger);
+
+            var loginList = new List<string>();
+            loginList.Add(login);
+
+            var actionResult = await _userController.Post(loginList);
+            var okResult = actionResult as OkObjectResult;
+            var outputData = okResult.Value as List<UserCacheModel>;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(1, outputData.Count);
+            Assert.AreEqual(200, okResult.StatusCode);
+        }
+
+        [Test]
+        public async Task GetUsersWithEmptyLogin()
+        {
+            _userController = new UserController(_memCache, _configuration, _userService, _logger);
+
+            var actionResult = await _userController.Post(null);
+            var okResult = actionResult as OkObjectResult;
+            var outputData = okResult.Value as List<UserCacheModel>;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(10, outputData.Count);
+            Assert.AreEqual(200, okResult.StatusCode);
         }
     }
 }

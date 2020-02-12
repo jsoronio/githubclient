@@ -255,3 +255,7 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csproj.CopyComplete
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\nunit.engine.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\nunit.engine.api.dll

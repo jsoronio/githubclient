@@ -80,6 +80,13 @@ namespace GitHubClient.NUnitTests
             Assert.AreEqual(true, _memCacheService.CheckExists(_configuration["InMemoryCache:Key"]));
         }
 
+        [Test]
+        [TestCase("mojombo;defunkt;pjhyett")]
+        public void GetExistingMemCache(string value)
+        {
+            Assert.AreEqual(value, _memCacheService.Get(_configuration["InMemoryCache:Key"]));
+        }
+
         //[Test]
         //[TestCase(5)]
         //[TestCase(10)]

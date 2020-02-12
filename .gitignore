@@ -227,3 +227,14 @@ project.lock.json
 **/GitHubClient/obj/
 **/XUnitTestProject/obj/
 /GitHubClient/bin/
+
+GitHubClient.Services/bin/Debug/netcoreapp3.1
+GitHubClient.Services/obj
+GitHubClient.NUnitTests/bin/Debug/netcoreapp3.1
+GitHubClient.NUnitTests/obj
+GitHubClient.Models/bin/Debug/netcoreapp3.1
+GitHubClient.Models/obj
+GitHubClient/bin
+GitHubClient/obj
+GitHubClient/Logs
+.vs/GitHubClient

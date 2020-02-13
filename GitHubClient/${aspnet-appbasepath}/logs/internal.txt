@@ -994,3 +994,278 @@ File name: 'NLog.Extended, Culture=neutral, PublicKeyToken=null'
 2020-02-13 08:46:40.1559 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
 2020-02-13 08:46:40.1742 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
 2020-02-13 08:46:40.1921 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:22.5696 Debug ScanAssembly('NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-02-13 09:00:22.6569 Debug Found assembly location directory: 'C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1' (NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c)
+2020-02-13 09:00:22.6714 Debug Search for auto loading files in location: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1
+2020-02-13 09:00:22.6907 Debug Start auto loading, location: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1
+2020-02-13 09:00:22.7061 Info Auto loading assembly file: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-02-13 09:00:22.7200 Info Loading assembly file: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+2020-02-13 09:00:22.7769 Info NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 1.6.1.1203. Product version: 1.6.1.
+2020-02-13 09:00:22.7922 Debug ScanAssembly('NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-02-13 09:00:22.8093 Info Auto loading assembly file: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll succeeded!
+2020-02-13 09:00:22.8238 Info Auto loading assembly file: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+2020-02-13 09:00:22.8380 Info Loading assembly file: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
+2020-02-13 09:00:22.8763 Info NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 4.9.0.1511. Product version: 4.9.0.
+2020-02-13 09:00:22.8891 Debug ScanAssembly('NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-02-13 09:00:22.9031 Info Auto loading assembly file: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll succeeded!
+2020-02-13 09:00:22.9162 Trace Assembly 'Microsoft.Extensions.Logging, Version=3.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' will be hidden in callsite stacktrace
+2020-02-13 09:00:22.9295 Trace Assembly 'Microsoft.Extensions.Logging.Abstractions, Version=3.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60' will be hidden in callsite stacktrace
+2020-02-13 09:00:22.9295 Trace Assembly 'NLog.Extensions.Logging, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c' will be hidden in callsite stacktrace
+2020-02-13 09:00:22.9561 Trace Assembly 'NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c' will be hidden in callsite stacktrace
+2020-02-13 09:00:22.9700 Debug Auto loading done
+2020-02-13 09:00:22.9823 Info Message Template Auto Format enabled
+2020-02-13 09:00:22.9972 Info Loading assembly: NLog.Web.AspNetCore
+2020-02-13 09:00:23.0163 Debug ScanAssembly('NLog.Web.AspNetCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c')
+2020-02-13 09:00:23.0355 Info Loading assembly: NLog.Extended
+2020-02-13 09:00:23.0766 Warn Error has been raised. Exception: NLog.NLogConfigurationException: Error loading extensions: NLog.Extended
+ ---> System.IO.FileNotFoundException: Could not load file or assembly 'NLog.Extended, Culture=neutral, PublicKeyToken=null'. The system cannot find the file specified.
+File name: 'NLog.Extended, Culture=neutral, PublicKeyToken=null'
+   at System.Reflection.RuntimeAssembly.nLoad(AssemblyName fileName, String codeBase, RuntimeAssembly assemblyContext, StackCrawlMark& stackMark, Boolean throwOnFileNotFound, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.RuntimeAssembly.InternalLoadAssemblyName(AssemblyName assemblyRef, StackCrawlMark& stackMark, AssemblyLoadContext assemblyLoadContext)
+   at System.Reflection.Assembly.Load(String assemblyString)
+   at NLog.Internal.AssemblyHelpers.LoadFromName(String assemblyName)
+   at NLog.Config.LoggingConfigurationParser.ParseExtensionWithAssembly(String assemblyName, String prefix)
+
+
+   --- End of inner exception stack trace ---
+2020-02-13 09:00:23.1025 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.1172 Trace Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2020-02-13 09:00:23.1363 Debug Setting 'UppercaseLayoutRendererWrapper.uppercase' to 'true'
+2020-02-13 09:00:23.1663 Trace Wrapping LevelLayoutRenderer with UppercaseLayoutRendererWrapper
+2020-02-13 09:00:23.1805 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.1805 Trace Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:23.2067 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.2193 Trace Scanning UppercaseLayoutRendererWrapper 'Layout Renderer: ${uppercase}'
+2020-02-13 09:00:23.2331 Trace  Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:23.2469 Trace  Scanning Property Inner 'SimpleLayout=Layout Renderer: ${level}' NLog.Layouts
+2020-02-13 09:00:23.2592 Trace  Scanning SimpleLayout 'SimpleLayout=Layout Renderer: ${level}'
+2020-02-13 09:00:23.2719 Trace   Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:23.2719 Trace   Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:23.2974 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.3100 Trace Scanning LoggerNameLayoutRenderer 'Layout Renderer: ${logger}'
+2020-02-13 09:00:23.3225 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.3349 Trace Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2020-02-13 09:00:23.3526 Debug Setting 'FileTarget.name' to 'logger'
+2020-02-13 09:00:23.3661 Debug Setting 'FileTarget.fileName' to '${aspnet-appbasepath}/logs/log.txt'
+2020-02-13 09:00:23.3661 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.3922 Trace Scanning AspNetAppBasePathLayoutRenderer 'Layout Renderer: ${aspnet-appbasepath}'
+2020-02-13 09:00:23.4057 Debug Setting 'FileTarget.layout' to '${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}'
+2020-02-13 09:00:23.4185 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.4307 Trace Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2020-02-13 09:00:23.4307 Debug Setting 'EventPropertiesLayoutRenderer.item' to 'EventId_Id'
+2020-02-13 09:00:23.4560 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.4689 Trace Scanning EventPropertiesLayoutRenderer 'Layout Renderer: ${event-properties}'
+2020-02-13 09:00:23.4813 Trace  Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:23.4946 Debug Setting 'UppercaseLayoutRendererWrapper.Inner' to '${level}'
+2020-02-13 09:00:23.5090 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.5229 Trace Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:23.5388 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.5534 Trace Scanning UppercaseLayoutRendererWrapper 'Layout Renderer: ${uppercase}'
+2020-02-13 09:00:23.5534 Trace  Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:23.5800 Trace  Scanning Property Inner ''${level}'' NLog.Layouts
+2020-02-13 09:00:23.5948 Trace  Scanning SimpleLayout ''${level}''
+2020-02-13 09:00:23.6093 Trace   Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:23.6236 Trace   Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:23.6370 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.6502 Trace Scanning LoggerNameLayoutRenderer 'Layout Renderer: ${logger}'
+2020-02-13 09:00:23.6654 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.6792 Trace Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2020-02-13 09:00:23.7006 Debug Setting 'ExceptionLayoutRenderer.format' to 'tostring'
+2020-02-13 09:00:23.7137 Trace FindReachableObject<NLog.Internal.IRenderable>:
+2020-02-13 09:00:23.7265 Trace Scanning ExceptionLayoutRenderer 'Layout Renderer: ${exception}'
+2020-02-13 09:00:23.7265 Trace  Scanning Property Formats 'System.Collections.Generic.List`1[NLog.Config.ExceptionRenderingFormat]' System.Collections.Generic
+2020-02-13 09:00:23.7526 Info Adding target FileTarget(Name=logger)
+2020-02-13 09:00:23.7658 Debug Registered target logger: NLog.Targets.FileTarget
+2020-02-13 09:00:23.7790 Trace ParseRulesElement
+2020-02-13 09:00:23.8000 Debug Unused target checking is started... Rule Count: 1, Target Count: 1
+2020-02-13 09:00:23.8166 Debug Unused target checking is completed. Total Rule Count: 1, Total Target Count: 1, Unused Target Count: 0
+2020-02-13 09:00:23.8359 Debug Watching path 'C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient' filter 'nlog.config' for changes.
+2020-02-13 09:00:23.8515 Debug --- NLog configuration dump ---
+2020-02-13 09:00:23.8515 Debug Targets:
+2020-02-13 09:00:23.8795 Debug File Target[logger]
+2020-02-13 09:00:23.8926 Debug Rules:
+2020-02-13 09:00:23.9078 Debug logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] appendTo: [ logger ]
+2020-02-13 09:00:23.9221 Debug --- End of NLog configuration dump ---
+2020-02-13 09:00:23.9387 Trace FindReachableObject<System.Object>:
+2020-02-13 09:00:23.9527 Trace Scanning LoggingRule 'logNamePattern: (:All) levels: [ Debug Info Warn Error Fatal ] appendTo: [ logger ]'
+2020-02-13 09:00:23.9663 Trace  Scanning Property Targets 'System.Collections.Generic.List`1[NLog.Targets.Target]' System.Collections.Generic
+2020-02-13 09:00:23.9806 Trace  Scanning FileTarget 'File Target[logger]'
+2020-02-13 09:00:23.9949 Trace   Scanning Property FileName ''${aspnet-appbasepath}/logs/log.txt'' NLog.Layouts
+2020-02-13 09:00:24.0079 Trace   Scanning SimpleLayout ''${aspnet-appbasepath}/logs/log.txt''
+2020-02-13 09:00:24.0212 Trace    Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:24.0212 Trace    Scanning AspNetAppBasePathLayoutRenderer 'Layout Renderer: ${aspnet-appbasepath}'
+2020-02-13 09:00:24.0471 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.0602 Trace   Scanning Property Layout ''${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}'' NLog.Layouts
+2020-02-13 09:00:24.0730 Trace   Scanning SimpleLayout ''${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}''
+2020-02-13 09:00:24.0860 Trace    Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:24.0860 Trace    Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2020-02-13 09:00:24.1114 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.1242 Trace    Scanning EventPropertiesLayoutRenderer 'Layout Renderer: ${event-properties}'
+2020-02-13 09:00:24.1375 Trace     Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:24.1501 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.1638 Trace    Scanning UppercaseLayoutRendererWrapper 'Layout Renderer: ${uppercase}'
+2020-02-13 09:00:24.1638 Trace     Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:24.1894 Trace     Scanning Property Inner ''${level}'' NLog.Layouts
+2020-02-13 09:00:24.2028 Trace     Scanning SimpleLayout ''${level}''
+2020-02-13 09:00:24.2161 Trace      Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:24.2305 Trace      Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:24.2446 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.2655 Trace    Scanning LoggerNameLayoutRenderer 'Layout Renderer: ${logger}'
+2020-02-13 09:00:24.2802 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.2936 Trace    Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2020-02-13 09:00:24.3117 Trace    Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.3286 Trace    Scanning ExceptionLayoutRenderer 'Layout Renderer: ${exception}'
+2020-02-13 09:00:24.3434 Trace     Scanning Property Formats 'System.Collections.Generic.List`1[NLog.Config.ExceptionRenderingFormat]' System.Collections.Generic
+2020-02-13 09:00:24.3603 Trace   Scanning Property LineEnding 'Default' NLog.Targets
+2020-02-13 09:00:24.3785 Trace   Scanning Property Encoding 'System.Text.UTF8Encoding+UTF8EncodingSealed' System.Text
+2020-02-13 09:00:24.3993 Trace  Scanning Property ChildRules 'System.Collections.Generic.List`1[NLog.Config.LoggingRule]' System.Collections.Generic
+2020-02-13 09:00:24.4129 Trace  Scanning Property Filters 'System.Collections.Generic.List`1[NLog.Filters.Filter]' System.Collections.Generic
+2020-02-13 09:00:24.4129 Info Found 19 configuration items
+2020-02-13 09:00:24.4407 Trace Initializing Layout Renderer: ${exception}
+2020-02-13 09:00:24.4542 Trace Initializing Layout Renderer: ${literal}
+2020-02-13 09:00:24.4675 Trace Initializing Layout Renderer: ${message}
+2020-02-13 09:00:24.4803 Trace Initializing Layout Renderer: ${literal}
+2020-02-13 09:00:24.4931 Trace Initializing Layout Renderer: ${logger}
+2020-02-13 09:00:24.4931 Trace Initializing Layout Renderer: ${literal}
+2020-02-13 09:00:24.5192 Trace Initializing Layout Renderer: ${level}
+2020-02-13 09:00:24.5322 Trace Initializing '${level}'
+2020-02-13 09:00:24.5464 Trace FindReachableObject<System.Object>:
+2020-02-13 09:00:24.5593 Trace Scanning SimpleLayout ''${level}''
+2020-02-13 09:00:24.5719 Trace  Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:24.5846 Trace  Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:24.5846 Trace Initializing Layout Renderer: ${uppercase}
+2020-02-13 09:00:24.6134 Trace Initializing Layout Renderer: ${literal}
+2020-02-13 09:00:24.6268 Trace Initializing Layout Renderer: ${event-properties}
+2020-02-13 09:00:24.6398 Trace Initializing Layout Renderer: ${literal}
+2020-02-13 09:00:24.6529 Trace Initializing Layout Renderer: ${longdate}
+2020-02-13 09:00:24.6651 Trace Initializing '${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}'
+2020-02-13 09:00:24.6782 Trace FindReachableObject<System.Object>:
+2020-02-13 09:00:24.6782 Trace Scanning SimpleLayout ''${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}''
+2020-02-13 09:00:24.7043 Trace  Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:24.7183 Trace  Scanning LongDateLayoutRenderer 'Layout Renderer: ${longdate}'
+2020-02-13 09:00:24.7318 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.7453 Trace  Scanning EventPropertiesLayoutRenderer 'Layout Renderer: ${event-properties}'
+2020-02-13 09:00:24.7584 Trace   Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:24.7719 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.7719 Trace  Scanning UppercaseLayoutRendererWrapper 'Layout Renderer: ${uppercase}'
+2020-02-13 09:00:24.7982 Trace   Scanning Property Culture '' System.Globalization
+2020-02-13 09:00:24.8153 Trace   Scanning Property Inner ''${level}'' NLog.Layouts
+2020-02-13 09:00:24.8306 Trace   Scanning SimpleLayout ''${level}''
+2020-02-13 09:00:24.8453 Trace    Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:24.8598 Trace    Scanning LevelLayoutRenderer 'Layout Renderer: ${level}'
+2020-02-13 09:00:24.8732 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.8867 Trace  Scanning LoggerNameLayoutRenderer 'Layout Renderer: ${logger}'
+2020-02-13 09:00:24.9016 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.9166 Trace  Scanning MessageLayoutRenderer 'Layout Renderer: ${message}'
+2020-02-13 09:00:24.9307 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:24.9453 Trace  Scanning ExceptionLayoutRenderer 'Layout Renderer: ${exception}'
+2020-02-13 09:00:24.9602 Trace   Scanning Property Formats 'System.Collections.Generic.List`1[NLog.Config.ExceptionRenderingFormat]' System.Collections.Generic
+2020-02-13 09:00:24.9742 Trace Initializing Layout Renderer: ${literal}
+2020-02-13 09:00:24.9742 Trace Initializing Layout Renderer: ${aspnet-appbasepath}
+2020-02-13 09:00:25.0000 Trace Initializing '${aspnet-appbasepath}/logs/log.txt'
+2020-02-13 09:00:25.0132 Trace FindReachableObject<System.Object>:
+2020-02-13 09:00:25.0266 Trace Scanning SimpleLayout ''${aspnet-appbasepath}/logs/log.txt''
+2020-02-13 09:00:25.0398 Trace  Scanning Property Renderers 'System.Collections.ObjectModel.ReadOnlyCollection`1[NLog.LayoutRenderers.LayoutRenderer]' System.Collections.ObjectModel
+2020-02-13 09:00:25.0531 Trace  Scanning AspNetAppBasePathLayoutRenderer 'Layout Renderer: ${aspnet-appbasepath}'
+2020-02-13 09:00:25.0531 Trace  Scanning LiteralLayoutRenderer 'Layout Renderer: ${literal}'
+2020-02-13 09:00:25.0793 Trace Initializing File Target[logger]
+2020-02-13 09:00:25.0936 Trace FindReachableObject<NLog.Layouts.Layout>:
+2020-02-13 09:00:25.1068 Trace Scanning FileTarget 'File Target[logger]'
+2020-02-13 09:00:25.1206 Trace  Scanning Property FileName ''${aspnet-appbasepath}/logs/log.txt'' NLog.Layouts
+2020-02-13 09:00:25.1334 Trace  Scanning SimpleLayout ''${aspnet-appbasepath}/logs/log.txt''
+2020-02-13 09:00:25.1486 Trace  Scanning Property Layout ''${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}'' NLog.Layouts
+2020-02-13 09:00:25.1623 Trace  Scanning SimpleLayout ''${longdate}|${event-properties:item=EventId_Id}|${uppercase:${level}}|${logger}|${message} ${exception:format=tostring}''
+2020-02-13 09:00:25.1623 Trace  Scanning Property LineEnding 'Default' NLog.Targets
+2020-02-13 09:00:25.1919 Trace  Scanning Property Encoding 'System.Text.UTF8Encoding+UTF8EncodingSealed' System.Text
+2020-02-13 09:00:25.2067 Trace File Target[logger] has 2 layouts
+2020-02-13 09:00:25.2226 Trace FileTarget(Name=logger): Using appenderFactory: NLog.Internal.FileAppenders.RetryingMultiProcessFileAppender+Factory
+2020-02-13 09:00:26.0877 Debug Targets for GitHubClient.Services.LogNLog by level:
+2020-02-13 09:00:26.1036 Debug Trace =>
+2020-02-13 09:00:26.1183 Debug Debug => logger
+2020-02-13 09:00:26.1315 Debug Info => logger
+2020-02-13 09:00:26.1315 Debug Warn => logger
+2020-02-13 09:00:26.1578 Debug Error => logger
+2020-02-13 09:00:26.1710 Debug Fatal => logger
+2020-02-13 09:00:26.2009 Debug FileTarget(Name=logger): Process file 'C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt' on startup
+2020-02-13 09:00:26.2191 Debug Creating file appender: C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt
+2020-02-13 09:00:26.2339 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:26.2586 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:26.2778 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:26.3119 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:26.3423 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:27.3594 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:27.3784 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:27.4516 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:27.5378 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:27.5581 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.1683 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.1897 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.2139 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.2586 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.2782 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.8726 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.8935 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.9144 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.9376 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:28.9594 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:29.5457 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:29.5664 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:29.5872 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:29.6084 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:29.6279 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.2192 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.2404 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.2605 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.2811 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.3012 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.8177 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.8388 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.8590 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.8804 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:30.9017 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:31.4210 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:31.4426 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:31.4633 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:31.4847 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:31.5054 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.0997 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.1225 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.1433 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.1651 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.1865 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.7938 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.8140 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.8358 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.8584 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:32.8786 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:33.4745 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:33.4953 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:33.5162 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:33.5378 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:33.5586 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.0694 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.0906 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.1102 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.1305 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.1511 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.7510 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.7724 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.7931 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.8136 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:34.8351 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:35.3508 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:35.3732 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:00:35.3941 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:03.7600 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:03.7896 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:03.8168 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:03.8441 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:03.8659 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:04.4526 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:04.4768 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:04.4982 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:04.5193 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:04.5403 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:05.4488 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:05.4701 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False
+2020-02-13 09:01:05.4907 Trace Opening C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\logs\log.txt with allowFileSharedWriting=False

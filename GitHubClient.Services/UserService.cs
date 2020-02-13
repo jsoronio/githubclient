@@ -18,7 +18,6 @@ namespace GitHubClient.Services
     {
         private readonly IMemoryCacheService _cacheService;
         private readonly IConfiguration _configuration;
-        private readonly IHttpClientFactory _clientFactory;
         private readonly ILog _logger;
 
         private string _key = string.Empty;
@@ -27,11 +26,10 @@ namespace GitHubClient.Services
         private string _clientSecret = string.Empty;
         private int _maxUsers = 0;
 
-        public UserService(IMemoryCacheService cacheService, IConfiguration configuration, IHttpClientFactory clientFactory, ILog logger)
+        public UserService(IMemoryCacheService cacheService, IConfiguration configuration, ILog logger)
         {
             _cacheService = cacheService;
             _configuration = configuration;
-            _clientFactory = clientFactory;
             _logger = logger;
             _endpoint = _configuration["GitHub:UserEndPoint"];
             _clientId = _configuration["GitHub:ClientId"];
@@ -75,35 +73,38 @@ namespace GitHubClient.Services
             {
                 _logger.Information("Sending GET Request to Github Api Endpoint");
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
-                request.Headers.Add("Accept", "application/json");
-                request.Headers.Add("User-Agent", "localhost");
-                request.Headers.Add("Cache-Control", "no-cache");
-                request.Headers.Add("Connection", "keep-alive");
-
-                _logger.Information($"[GET] https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
-
-                var client = _clientFactory.CreateClient();
-                var response = await client.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    _logger.Information("HTTP GET Request: Successful");
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("Accept", "application/json");
+                    client.DefaultRequestHeaders.Add("User-Agent", "localhost");
+                    client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
+                    client.DefaultRequestHeaders.Add("Connection", "keep-alive");
 
-                    var jsonString = await response.Content.ReadAsStringAsync();
+                    _logger.Information($"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
 
-                    _logger.Information($"Response Code: {response.StatusCode}");
-                    _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
-
-                    if (!string.IsNullOrEmpty(jsonString))
+                    using (HttpResponseMessage response = await client.GetAsync($"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}"))
                     {
-                        apiUserList = JsonConvert.DeserializeObject<List<UserDataModel>>(jsonString);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            _logger.Information("HTTP GET Request: Successful");
 
+                            var jsonString = await response.Content.ReadAsStringAsync();
+
+                            _logger.Information($"Response Code: {response.StatusCode}");
+                            _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
+
+                            if (!string.IsNullOrEmpty(jsonString))
+                            {
+                                apiUserList = JsonConvert.DeserializeObject<List<UserDataModel>>(jsonString);
+
+                            }
+                        }
+                        else
+                        {
+                            _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
+                        }
                     }
-                }
-                else
-                {
-                    _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
                 }
             }
             catch (WebException exception)
@@ -122,34 +123,37 @@ namespace GitHubClient.Services
             {
                 _logger.Information("Sending GET Request to Github Api Endpoint");
 
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
-                request.Headers.Add("Accept", "application/json");
-                request.Headers.Add("User-Agent", "localhost");
-                request.Headers.Add("Cache-Control", "no-cache");
-                request.Headers.Add("Connection", "keep-alive");
-
-                _logger.Information($"[GET] https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
-
-                var client = _clientFactory.CreateClient();
-                var response = await client.SendAsync(request);
-
-                if (response.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    _logger.Information("HTTP GET Request: Successful");
+                    client.DefaultRequestHeaders.Clear();
+                    client.DefaultRequestHeaders.Add("Accept", "application/json");
+                    client.DefaultRequestHeaders.Add("User-Agent", "localhost");
+                    client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
+                    client.DefaultRequestHeaders.Add("Connection", "keep-alive");
 
-                    var jsonString = await response.Content.ReadAsStringAsync();
+                    _logger.Information($"[GET] https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
 
-                    _logger.Information($"Response Code: {response.StatusCode}");
-                    _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
-
-                    if (!string.IsNullOrEmpty(jsonString))
+                    using (HttpResponseMessage response = await client.GetAsync($"https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}"))
                     {
-                        userDetail = JsonConvert.DeserializeObject<UserDataDetailModel>(jsonString);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            _logger.Information("HTTP GET Request: Successful");
+
+                            var jsonString = await response.Content.ReadAsStringAsync();
+
+                            _logger.Information($"Response Code: {response.StatusCode}");
+                            _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
+
+                            if (!string.IsNullOrEmpty(jsonString))
+                            {
+                                userDetail = JsonConvert.DeserializeObject<UserDataDetailModel>(jsonString);
+                            }
+                        }
+                        else
+                        {
+                            _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
+                        }
                     }
-                }
-                else
-                {
-                    _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
                 }
             }
             catch (WebException exception)

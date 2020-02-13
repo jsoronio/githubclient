@@ -28,7 +28,6 @@ namespace GitHubClient.NUnitTests
         private IMemoryCacheService _memCacheService;
         private IConfiguration _configuration;
         private IUserService _userService;
-        private IHttpClientFactory _clientFactory;
         private ILog _logger;
 
         [SetUp]
@@ -60,13 +59,12 @@ namespace GitHubClient.NUnitTests
             _memCache = serviceProvider.GetService<IMemoryCache>();
             _userService = serviceProvider.GetService<IUserService>();
             _logger = serviceProvider.GetService<ILog>();
-            _clientFactory = serviceProvider.GetService<IHttpClientFactory>();
             _memCacheService = serviceProvider.GetService<IMemoryCacheService>();
         }
 
         [Test]
         public async Task GetTop10Users() {
-            _userService = new UserService(_memCacheService, _configuration, _clientFactory, _logger);
+            _userService = new UserService(_memCacheService, _configuration, _logger);
 
             var result = await _userService.GetAll();
 
@@ -80,7 +78,7 @@ namespace GitHubClient.NUnitTests
         [TestCase("pjhyett", "ezmobius")]
         public async Task GetTop10UsersWithParams(string login1, string login2)
         {
-            _userService = new UserService(_memCacheService, _configuration, _clientFactory, _logger);
+            _userService = new UserService(_memCacheService, _configuration, _logger);
 
             var loginList = new List<string>();
             loginList.Add(login1);
@@ -96,7 +94,7 @@ namespace GitHubClient.NUnitTests
         [Test]
         public async Task CallGithubApiEndpoint()
         {
-            _userService = new UserService(_memCacheService, _configuration, _clientFactory, _logger);
+            _userService = new UserService(_memCacheService, _configuration, _logger);
 
             var result = await _userService.GetApiUsers();
 
@@ -110,7 +108,7 @@ namespace GitHubClient.NUnitTests
         [TestCase("ezmobius")]
         public async Task CallGithubApiEndpointWithLogin(string login)
         {
-            _userService = new UserService(_memCacheService, _configuration, _clientFactory, _logger);
+            _userService = new UserService(_memCacheService, _configuration, _logger);
 
             var result = await _userService.GetApiUserbyLogin(login);
 

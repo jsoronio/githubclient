@@ -89,17 +89,17 @@ namespace GitHubClient.NUnitTests
             Assert.AreEqual(value, _memCacheService.Get(_configuration["InMemoryCache:Key"]));
         }
 
-        //[Test]
-        //[TestCase(5)]
-        //[TestCase(10)]
-        //public void CheckMemCacheExpiryInSeconds(int seconds)
-        //{
-        //    _memCacheService.SlideDuration = seconds;
-        //    _memCacheService.Set("testkey", "testvalue");
+        [Test]
+        [TestCase(5)]
+        [TestCase(10)]
+        public void CheckMemCacheExpiryInSeconds(int seconds)
+        {
+            _memCacheService.SlideDuration = seconds;
+            _memCacheService.Set("testkey", "testvalue");
 
-        //    Thread.Sleep((seconds + 2) * 1000);
+            Thread.Sleep((seconds + 2) * 1000);
 
-        //    Assert.AreEqual(false, _memCacheService.CheckExists("testkey"));
-        //}
+            Assert.AreEqual(false, _memCacheService.CheckExists("testkey"));
+        }
     }
 }

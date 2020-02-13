@@ -76,7 +76,7 @@ namespace GitHubClient.NUnitTests
         [Test]
         [TestCase("mojombo", "defunkt")]
         [TestCase("pjhyett", "ezmobius")]
-        public async Task GetTop10UsersWithParams(string login1, string login2)
+        public async Task GetUsersWithParams(string login1, string login2)
         {
             _userService = new UserService(_memCacheService, _configuration, _logger);
 

@@ -14,13 +14,11 @@ namespace GitHubClient.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private readonly IMemoryCache _cache;
         private readonly IUserService _userService;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILog _logger;
 
-        public UserController(IMemoryCache cache, IConfiguration config, IUserService userService, ILogger<UserController> logger) 
+        public UserController(IConfiguration config, IUserService userService, ILog logger) 
         {
-            _cache = cache;
             _userService = userService;
             _logger = logger;
         }
@@ -28,7 +26,7 @@ namespace GitHubClient.Controllers
         [HttpGet]
         public async Task<IActionResult> Get() 
         {
-            _logger.LogInformation("Receiving GET Request");
+            _logger.Information("Receiving GET Request");
 
             return Ok(await _userService.GetAll());
         }
@@ -37,10 +35,10 @@ namespace GitHubClient.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Post(IList<string> logins)
         {
-            _logger.LogInformation("Receiving POST Request");
+            _logger.Information("Receiving POST Request");
 
             if (logins != null) {
-                _logger.LogInformation($"Accepting POST Params - {JsonConvert.SerializeObject(logins)}");
+                _logger.Information($"Accepting POST Params - {JsonConvert.SerializeObject(logins)}");
             }
 
             return Ok(await _userService.GetAll(logins));

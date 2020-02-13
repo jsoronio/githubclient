@@ -10,6 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using NLog;
+using System;
+using System.IO;
 
 namespace GitHubClient
 {
@@ -17,6 +20,7 @@ namespace GitHubClient
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(System.String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -32,6 +36,7 @@ namespace GitHubClient
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<ILog, LogNLog>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
@@ -44,7 +49,7 @@ namespace GitHubClient
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddFile("Logs/logger-{Date}.txt");
+            //loggerFactory.AddFile("Logs/logger-{Date}.txt");
 
             if (env.IsDevelopment())
             {

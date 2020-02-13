@@ -29,7 +29,7 @@ namespace GitHubClient.NUnitTests
         private IConfiguration _configuration;
         private IUserService _userService;
         private IHttpClientFactory _clientFactory;
-        private ILogger<UserService> _logger;
+        private ILog _logger;
 
         [SetUp]
         public void Setup()
@@ -49,6 +49,8 @@ namespace GitHubClient.NUnitTests
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<ILog, LogNLog>();
+
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
             services.AddHttpClient();
@@ -57,7 +59,7 @@ namespace GitHubClient.NUnitTests
             var serviceProvider = services.BuildServiceProvider();
             _memCache = serviceProvider.GetService<IMemoryCache>();
             _userService = serviceProvider.GetService<IUserService>();
-            _logger = serviceProvider.GetService<ILogger<UserService>>();
+            _logger = serviceProvider.GetService<ILog>();
             _clientFactory = serviceProvider.GetService<IHttpClientFactory>();
             _memCacheService = serviceProvider.GetService<IMemoryCacheService>();
         }

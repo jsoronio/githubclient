@@ -3,6 +3,7 @@ using GitHubClient.Services.Interface;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace GitHubClient.Services
         private readonly IMemoryCacheService _cacheService;
         private readonly IConfiguration _configuration;
         private readonly IHttpClientFactory _clientFactory;
-        private readonly ILogger<UserService> _logger;
+        private readonly ILog _logger;
 
         private string _key = string.Empty;
         private string _endpoint = string.Empty;
@@ -26,7 +27,7 @@ namespace GitHubClient.Services
         private string _clientSecret = string.Empty;
         private int _maxUsers = 0;
 
-        public UserService(IMemoryCacheService cacheService, IConfiguration configuration, IHttpClientFactory clientFactory, ILogger<UserService> logger)
+        public UserService(IMemoryCacheService cacheService, IConfiguration configuration, IHttpClientFactory clientFactory, ILog logger)
         {
             _cacheService = cacheService;
             _configuration = configuration;
@@ -43,24 +44,24 @@ namespace GitHubClient.Services
         {
             if (logins == null)
             {
-                _logger.LogInformation($"Checking existing memory cache with key - '{_key}'");
+                _logger.Information($"Checking existing memory cache with key - '{_key}'");
 
                 if (_cacheService.CheckExists(_key))
                 {
-                    _logger.LogInformation($"Fetching Users from existing memory cache");
+                    _logger.Information($"Fetching Users from existing memory cache");
 
                     return await GetUsersFromMemoryCache();
                 }
                 else
                 {
-                    _logger.LogInformation($"Fetching Users from Github's Api endpoint");
+                    _logger.Information($"Fetching Users from Github's Api endpoint");
 
                     return await GetUsersFromApi();
                 }
             }
             else
             {
-                _logger.LogInformation($"Fetching specified Users only from the exisiting Memory Cache or from the Github's Api endpoint");
+                _logger.Information($"Fetching specified Users only from the exisiting Memory Cache or from the Github's Api endpoint");
 
                 return await GetUsersFromEntries(logins);
             }
@@ -72,34 +73,42 @@ namespace GitHubClient.Services
 
             try
             {
+                _logger.Information("Sending GET Request to Github Api Endpoint");
+
                 var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
                 request.Headers.Add("Accept", "application/json");
                 request.Headers.Add("User-Agent", "localhost");
                 request.Headers.Add("Cache-Control", "no-cache");
                 request.Headers.Add("Connection", "keep-alive");
 
+                _logger.Information($"[GET] https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
+
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
+                    _logger.Information("HTTP GET Request: Successful");
+
                     var jsonString = await response.Content.ReadAsStringAsync();
+
+                    _logger.Information($"Response Code: {response.StatusCode}");
+                    _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
 
                     if (!string.IsNullOrEmpty(jsonString))
                     {
                         apiUserList = JsonConvert.DeserializeObject<List<UserDataModel>>(jsonString);
+
                     }
                 }
                 else
                 {
-                    _logger.LogError($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
+                    _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
                 }
-
-                _logger.LogInformation("Github Api Request was successful");
             }
             catch (WebException exception)
             {
-                _logger.LogError(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
+                _logger.Error(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
             }
 
             return apiUserList;
@@ -111,18 +120,27 @@ namespace GitHubClient.Services
 
             try
             {
+                _logger.Information("Sending GET Request to Github Api Endpoint");
+
                 var request = new HttpRequestMessage(HttpMethod.Get, $"https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
                 request.Headers.Add("Accept", "application/json");
                 request.Headers.Add("User-Agent", "localhost");
                 request.Headers.Add("Cache-Control", "no-cache");
                 request.Headers.Add("Connection", "keep-alive");
 
+                _logger.Information($"[GET] https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
+
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
 
                 if (response.IsSuccessStatusCode)
                 {
+                    _logger.Information("HTTP GET Request: Successful");
+
                     var jsonString = await response.Content.ReadAsStringAsync();
+
+                    _logger.Information($"Response Code: {response.StatusCode}");
+                    _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
 
                     if (!string.IsNullOrEmpty(jsonString))
                     {
@@ -131,14 +149,12 @@ namespace GitHubClient.Services
                 }
                 else
                 {
-                    _logger.LogError($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
+                    _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
                 }
-
-                _logger.LogInformation("Github Api Request was successful");
             }
             catch (WebException exception)
             {
-                _logger.LogError(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
+                _logger.Error(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
             }
 
             return userDetail;
@@ -154,6 +170,12 @@ namespace GitHubClient.Services
             userCache.numberOfPublicRepos = model.public_repos;
 
             return userCache;
+        }
+
+        private string FormatJsonString(string jsonString)
+        {
+            JToken jt = JToken.Parse(jsonString);
+            return jt.ToString(Formatting.Indented);
         }
 
         private async Task<List<UserCacheModel>> GetUsersFromApi()

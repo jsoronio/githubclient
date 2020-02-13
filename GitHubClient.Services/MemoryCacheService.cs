@@ -12,14 +12,14 @@ namespace GitHubClient.Services
     {
         private readonly IMemoryCache _cache;
         private readonly IConfiguration _configuration;
-        private readonly ILogger<MemoryCacheService> _logger;
+        private readonly ILog _logger;
 
         private string _key = string.Empty;
         private string _endpoint = string.Empty;
 
         public int SlideDuration { get; set; }
 
-        public MemoryCacheService(IMemoryCache cache, IConfiguration configuration, ILogger<MemoryCacheService> logger)
+        public MemoryCacheService(IMemoryCache cache, IConfiguration configuration, ILog logger)
         {
             _cache = cache;
             _configuration = configuration;

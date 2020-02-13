@@ -123,6 +123,11 @@ C:\Users\JSoronio\Documents\Visual Studio 2019\Projects\GitHubClient\GitHubClien
 C:\Users\JSoronio\Documents\Visual Studio 2019\Projects\GitHubClient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
 C:\Users\JSoronio\Documents\Visual Studio 2019\Projects\GitHubClient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\JSoronio\Documents\Visual Studio 2019\Projects\GitHubClient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\nunit.engine.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\nunit.engine.api.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.config
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -171,6 +176,9 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Microsoft.Web.Infrastructure.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Extensions.Logging.dll
+C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NLog.Web.AspNetCore.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Serilog.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\Serilog.Extensions.Logging.dll
@@ -255,7 +263,3 @@ C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreap
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.csproj.CopyComplete
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.dll
 C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\obj\Debug\netcoreapp3.1\GitHubClient.pdb
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\nunit.engine.dll
-C:\Users\JSoronio\Documents\Source\githubclient\GitHubClient\bin\Debug\netcoreapp3.1\nunit.engine.api.dll

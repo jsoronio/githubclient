@@ -27,7 +27,7 @@ namespace GitHubClient.NUnitTests
         private IMemoryCache _memCache;
         private IConfiguration _configuration;
         private IUserService _userService;
-        private ILogger<UserController> _logger;
+        private ILog _logger;
         private UserController _userController;
 
         [SetUp]
@@ -48,6 +48,8 @@ namespace GitHubClient.NUnitTests
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddSingleton<ILog, LogNLog>();
+
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
             services.AddHttpClient();
@@ -56,7 +58,7 @@ namespace GitHubClient.NUnitTests
             var serviceProvider = services.BuildServiceProvider();
             _memCache = serviceProvider.GetService<IMemoryCache>();
             _userService = serviceProvider.GetService<IUserService>();
-            _logger = serviceProvider.GetService<ILogger<UserController>>();
+            _logger = serviceProvider.GetService<ILog>();
         }
 
         [Test]
@@ -79,7 +81,7 @@ namespace GitHubClient.NUnitTests
         [Test]
         public async Task GetUsersAsync()
         {
-            _userController = new UserController(_memCache, _configuration, _userService, _logger);
+            _userController = new UserController( _configuration, _userService, _logger);
 
             var actionResult = await _userController.Get();
             var okResult = actionResult as OkObjectResult;
@@ -96,7 +98,7 @@ namespace GitHubClient.NUnitTests
         [TestCase("pjhyett")]
         public async Task GetUsersWithLogin(string login)
         {
-            _userController = new UserController(_memCache, _configuration, _userService, _logger);
+            _userController = new UserController(_configuration, _userService, _logger);
 
             var loginList = new List<string>();
             loginList.Add(login);
@@ -113,7 +115,7 @@ namespace GitHubClient.NUnitTests
         [Test]
         public async Task GetUsersWithEmptyLogin()
         {
-            _userController = new UserController(_memCache, _configuration, _userService, _logger);
+            _userController = new UserController(_configuration, _userService, _logger);
 
             var actionResult = await _userController.Post(null);
             var okResult = actionResult as OkObjectResult;

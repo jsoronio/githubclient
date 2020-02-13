@@ -2,20 +2,14 @@ using GitHubClient.Controllers;
 using GitHubClient.Models;
 using GitHubClient.Services;
 using GitHubClient.Services.Interface;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -48,11 +42,12 @@ namespace GitHubClient.NUnitTests
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddHttpClient<IGithubApiService, GithubApiService>();
+            services.AddSingleton<JsonSerializer>();
             services.AddSingleton<ILog, LogNLog>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
-            services.AddHttpClient();
             services.AddRazorPages();
 
             var serviceProvider = services.BuildServiceProvider();

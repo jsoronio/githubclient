@@ -28,7 +28,7 @@ namespace GitHubClient.Controllers
         {
             _logger.Information("Receiving GET Request");
 
-            return Ok(await _userService.GetAll());
+            return Ok(await _userService.GetList());
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace GitHubClient.Controllers
                 _logger.Information($"Accepting POST Params - {JsonConvert.SerializeObject(logins)}");
             }
 
-            return Ok(await _userService.GetAll(logins));
+            return Ok(await _userService.GetList(logins));
         }
     }
 }

@@ -36,11 +36,12 @@ namespace GitHubClient
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddHttpClient<IGithubApiService, GithubApiService>();
+            services.AddSingleton<JsonSerializer>();
             services.AddSingleton<ILog, LogNLog>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
-            services.AddHttpClient();
             services.AddRazorPages();
 
             services.AddMvc()

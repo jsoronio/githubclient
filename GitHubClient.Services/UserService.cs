@@ -18,150 +18,99 @@ namespace GitHubClient.Services
     {
         private readonly IMemoryCacheService _cacheService;
         private readonly IConfiguration _configuration;
+        private readonly IGithubApiService _gitApiService;
         private readonly ILog _logger;
 
         private string _key = string.Empty;
-        private string _endpoint = string.Empty;
-        private string _clientId = string.Empty;
-        private string _clientSecret = string.Empty;
+        private int _counter = 0;
         private int _maxUsers = 0;
 
-        public UserService(IMemoryCacheService cacheService, IConfiguration configuration, ILog logger)
+        private List<UserCacheModel> _userList;
+
+        public UserService(IGithubApiService githubService, IMemoryCacheService cacheService, IConfiguration configuration, ILog logger)
         {
             _cacheService = cacheService;
             _configuration = configuration;
             _logger = logger;
-            _endpoint = _configuration["GitHub:UserEndPoint"];
-            _clientId = _configuration["GitHub:ClientId"];
-            _clientSecret = _configuration["GitHub:ClientSecret"];
             _key = _configuration["InMemoryCache:Key"];
             _maxUsers = Convert.ToInt32(_configuration["GitHub:MaxUsers"]);
+            _gitApiService = githubService;
+            _userList = new List<UserCacheModel>();
+            _counter = 0;
         }
 
-        public async Task<List<UserCacheModel>> GetAll(IList<string> logins = null)
+        public async Task<List<UserCacheModel>> GetList()
         {
-            if (logins == null)
+            _logger.Information($"Checking existing memory cache with key - '{_key}'");
+
+            if (_cacheService.CheckExists(_key))
             {
-                _logger.Information($"Checking existing memory cache with key - '{_key}'");
+                _logger.Information($"Fetching Users from existing memory cache");
 
-                if (_cacheService.CheckExists(_key))
-                {
-                    _logger.Information($"Fetching Users from existing memory cache");
-
-                    return await GetUsersFromMemoryCache();
-                }
-                else
-                {
-                    _logger.Information($"Fetching Users from Github's Api endpoint");
-
-                    return await GetUsersFromApi();
-                }
+                return await GetTopUsersFromMemCache();
             }
             else
             {
-                _logger.Information($"Fetching specified Users only from the exisiting Memory Cache or from the Github's Api endpoint");
+                _logger.Information($"Fetching Users from Github's Api endpoint");
 
-                return await GetUsersFromEntries(logins);
+                return await GetTopUsersFromGithubApi();
             }
         }
 
-        public async Task<List<UserDataModel>> GetApiUsers()
+        public async Task<List<UserCacheModel>> GetList(IList<string> logins)
         {
-            List<UserDataModel> apiUserList = new List<UserDataModel>();
+            _logger.Information($"Fetching specified Users only from the exisiting Memory Cache or from the Github's Api endpoint");
 
-            try
-            {
-                _logger.Information("Sending GET Request to Github Api Endpoint");
-
-                using (var client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Add("Accept", "application/json");
-                    client.DefaultRequestHeaders.Add("User-Agent", "localhost");
-                    client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
-                    client.DefaultRequestHeaders.Add("Connection", "keep-alive");
-
-                    _logger.Information($"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}");
-
-                    using (HttpResponseMessage response = await client.GetAsync($"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}"))
-                    {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            _logger.Information("HTTP GET Request: Successful");
-
-                            var jsonString = await response.Content.ReadAsStringAsync();
-
-                            _logger.Information($"Response Code: {response.StatusCode}");
-                            _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
-
-                            if (!string.IsNullOrEmpty(jsonString))
-                            {
-                                apiUserList = JsonConvert.DeserializeObject<List<UserDataModel>>(jsonString);
-
-                            }
-                        }
-                        else
-                        {
-                            _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
-                        }
-                    }
-                }
-            }
-            catch (WebException exception)
-            {
-                _logger.Error(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
-            }
-
-            return apiUserList;
+            return await GetUserList(logins.ToList());
         }
 
-        public async Task<UserDataDetailModel> GetApiUserbyLogin(string login)
+        #region Private methods
+        private async Task<List<UserCacheModel>> GetTopUsersFromMemCache()
         {
-            UserDataDetailModel userDetail = new UserDataDetailModel();
+            var userCacheList = new List<UserCacheModel>();
+            var loginList = _cacheService.Get(_key);
 
-            try
+            if (!string.IsNullOrEmpty(loginList))
             {
-                _logger.Information("Sending GET Request to Github Api Endpoint");
+                userCacheList = await GetUserList(loginList.Split(";").ToList());
+            }
 
-                using (var client = new HttpClient())
+            return userCacheList;
+        }
+
+        private async Task<List<UserCacheModel>> GetTopUsersFromGithubApi()
+        {
+            var loginList = string.Empty;
+            var userList = await _gitApiService.GetList<UserDataModel>();
+
+            loginList = String.Join(";", userList.Select(m => m.login).ToList());
+
+            _cacheService.Set(_key, loginList);
+
+            return await GetUserList(userList.Select(m => m.login).ToList());
+        }
+
+        private async Task<List<UserCacheModel>> GetUserList(List<string> source)
+        {
+            if (source != null && source.Any())
+            {
+                foreach (var login in source)
                 {
-                    client.DefaultRequestHeaders.Clear();
-                    client.DefaultRequestHeaders.Add("Accept", "application/json");
-                    client.DefaultRequestHeaders.Add("User-Agent", "localhost");
-                    client.DefaultRequestHeaders.Add("Cache-Control", "no-cache");
-                    client.DefaultRequestHeaders.Add("Connection", "keep-alive");
-
-                    _logger.Information($"[GET] https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}");
-
-                    using (HttpResponseMessage response = await client.GetAsync($"https://{_endpoint}/users/{login}?client_id={_clientId}&client_secret={_clientSecret}"))
+                    if (_counter < _maxUsers)
                     {
-                        if (response.IsSuccessStatusCode)
-                        {
-                            _logger.Information("HTTP GET Request: Successful");
-
-                            var jsonString = await response.Content.ReadAsStringAsync();
-
-                            _logger.Information($"Response Code: {response.StatusCode}");
-                            _logger.Information($"Data Received: {FormatJsonString(jsonString)}");
-
-                            if (!string.IsNullOrEmpty(jsonString))
-                            {
-                                userDetail = JsonConvert.DeserializeObject<UserDataDetailModel>(jsonString);
-                            }
-                        }
+                        if (_cacheService.CheckExists(login))
+                           GetSingleUserFromMemCache(login);
                         else
-                        {
-                            _logger.Error($"Github Api Request was unsuccessful - Status Code ({response.StatusCode})");
-                        }
+                           await GetSingleUserFromGithubApi(login);
                     }
+                    else
+                        break;
                 }
-            }
-            catch (WebException exception)
-            {
-                _logger.Error(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
+
+                return _userList.OrderBy(m => m.name).ToList();
             }
 
-            return userDetail;
+            return new List<UserCacheModel>();
         }
 
         private UserCacheModel UserCacheMapping(UserDataDetailModel model)
@@ -176,135 +125,30 @@ namespace GitHubClient.Services
             return userCache;
         }
 
-        private string FormatJsonString(string jsonString)
+        private void GetSingleUserFromMemCache(string login) 
         {
-            JToken jt = JToken.Parse(jsonString);
-            return jt.ToString(Formatting.Indented);
-        }
+            var cacheObject = _cacheService.Get(login);
+            var userCache = JsonConvert.DeserializeObject<UserCacheModel>(cacheObject);
 
-        private async Task<List<UserCacheModel>> GetUsersFromApi()
-        {
-            var userCacheList = new List<UserCacheModel>();
-            var userList = new List<UserDataModel>();
-            var counter = 0;
-
-            userList = await GetApiUsers();
-
-            var loginList = string.Empty;
-            loginList = String.Join(";", userList.Select(m => m.login).OrderBy(m => m).ToList());
-
-            _cacheService.Set(_key, loginList);
-
-            foreach (var login in loginList.Split(";"))
+            if (!string.IsNullOrEmpty(userCache.name))
             {
-                if (counter < _maxUsers)
-                {
-                    var userDetail = await GetApiUserbyLogin(login);
-
-                    if (!string.IsNullOrEmpty(userDetail.name))
-                    {
-                        var userCache = UserCacheMapping(userDetail);
-
-                        _cacheService.Set(login, JsonConvert.SerializeObject(userCache));
-
-                        userCacheList.Add(userCache);
-                        counter++;
-                    }
-                }
-                else
-                {
-                    break;
-                }
+                _userList.Add(userCache);
+                _counter++;
             }
-
-            return userCacheList.OrderBy(m => m.name).ToList();
         }
 
-        private async Task<List<UserCacheModel>> GetUsersFromMemoryCache()
+        private async Task GetSingleUserFromGithubApi(string login)
         {
-            var userCacheList = new List<UserCacheModel>();
-            var loginList = _cacheService.Get(_key);
+            var userDetail = await _gitApiService.GetSingle<UserDataDetailModel>(login);
+            var userCache = UserCacheMapping(userDetail);
 
-            if (!string.IsNullOrEmpty(loginList))
+            if (!string.IsNullOrEmpty(userCache.name))
             {
-                userCacheList = await GetUsersFromSource(loginList.Split(";").ToList());
+                _cacheService.Set(login, JsonConvert.SerializeObject(userCache));
+                _userList.Add(userCache);
+                _counter++;
             }
-
-            return userCacheList.OrderBy(m => m.name).ToList();
         }
-
-        private async Task<List<UserCacheModel>> GetUsersFromEntries(IList<string> logins)
-        {
-            var userCacheList = new List<UserCacheModel>();
-
-            userCacheList = await GetUsersFromSource(logins.ToList());
-
-            return userCacheList.OrderBy(m => m.name).ToList();
-        }
-
-        private async Task<List<UserCacheModel>> GetUsersFromSource(List<string> source)
-        {
-            var userCacheList = new List<UserCacheModel>();
-            var userList = new List<UserDataModel>();
-            var counter = 0;
-
-            foreach (var login in source)
-            {
-                if (counter < _maxUsers)
-                {
-                    var userCache = new UserCacheModel();
-
-                    if (_cacheService.CheckExists(login))
-                    {
-                        var cacheObject = _cacheService.Get(login);
-                        if (!string.IsNullOrEmpty(cacheObject))
-                        {
-                            userCache = JsonConvert.DeserializeObject<UserCacheModel>(cacheObject);
-
-                            if (!string.IsNullOrEmpty(userCache.name))
-                            {
-                                userCacheList.Add(userCache);
-
-                                counter++;
-                            }
-                        }
-                        else
-                        {
-                            var userDetail = await GetApiUserbyLogin(login);
-                            userCache = UserCacheMapping(userDetail);
-
-                            if (!string.IsNullOrEmpty(userCache.name))
-                            {
-                                _cacheService.Set(login, JsonConvert.SerializeObject(userCache));
-
-                                userCacheList.Add(userCache);
-
-                                counter++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var userDetail = await GetApiUserbyLogin(login);
-                        userCache = UserCacheMapping(userDetail);
-
-                        if (!string.IsNullOrEmpty(userCache.name))
-                        {
-                            _cacheService.Set(login, JsonConvert.SerializeObject(userCache));
-
-                            userCacheList.Add(userCache);
-
-                            counter++;
-                        }
-                    }
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            return userCacheList;
-        }
+        #endregion
     }
 }

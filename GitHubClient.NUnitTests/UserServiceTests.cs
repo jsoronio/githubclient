@@ -1,21 +1,13 @@
-﻿using GitHubClient.Controllers;
-using GitHubClient.Models;
+﻿using GitHubClient.Models;
 using GitHubClient.Services;
 using GitHubClient.Services.Interface;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Moq;
+using Newtonsoft.Json;
 using NUnit.Framework;
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -28,6 +20,7 @@ namespace GitHubClient.NUnitTests
         private IMemoryCacheService _memCacheService;
         private IConfiguration _configuration;
         private IUserService _userService;
+        private IGithubApiService _gitHubService;
         private ILog _logger;
 
         [SetUp]
@@ -48,11 +41,12 @@ namespace GitHubClient.NUnitTests
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddHttpClient<IGithubApiService, GithubApiService>();
+            services.AddSingleton<JsonSerializer>();
             services.AddSingleton<ILog, LogNLog>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
-            services.AddHttpClient();
             services.AddRazorPages();
 
             var serviceProvider = services.BuildServiceProvider();
@@ -60,13 +54,14 @@ namespace GitHubClient.NUnitTests
             _userService = serviceProvider.GetService<IUserService>();
             _logger = serviceProvider.GetService<ILog>();
             _memCacheService = serviceProvider.GetService<IMemoryCacheService>();
+            _gitHubService = serviceProvider.GetService<IGithubApiService>();
         }
 
         [Test]
         public async Task GetTop10Users() {
-            _userService = new UserService(_memCacheService, _configuration, _logger);
+            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
 
-            var result = await _userService.GetAll();
+            var result = await _userService.GetList();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(10, result.Count);
@@ -78,13 +73,13 @@ namespace GitHubClient.NUnitTests
         [TestCase("pjhyett", "ezmobius")]
         public async Task GetUsersWithParams(string login1, string login2)
         {
-            _userService = new UserService(_memCacheService, _configuration, _logger);
+            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
 
             var loginList = new List<string>();
             loginList.Add(login1);
             loginList.Add(login2);
 
-            var result = await _userService.GetAll(loginList);
+            var result = await _userService.GetList(loginList);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count);
@@ -94,9 +89,9 @@ namespace GitHubClient.NUnitTests
         [Test]
         public async Task CallGithubApiEndpoint()
         {
-            _userService = new UserService(_memCacheService, _configuration, _logger);
+            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
 
-            var result = await _userService.GetApiUsers();
+            var result = await _gitHubService.GetList<UserDataModel>();
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<List<UserDataModel>>(result);
@@ -108,9 +103,9 @@ namespace GitHubClient.NUnitTests
         [TestCase("ezmobius")]
         public async Task CallGithubApiEndpointWithLogin(string login)
         {
-            _userService = new UserService(_memCacheService, _configuration, _logger);
+            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
 
-            var result = await _userService.GetApiUserbyLogin(login);
+            var result = await _gitHubService.GetSingle<UserDataDetailModel>(login);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOf<UserDataDetailModel>(result);

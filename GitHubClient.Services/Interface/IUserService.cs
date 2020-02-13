@@ -8,8 +8,7 @@ namespace GitHubClient.Services.Interface
 {
     public interface IUserService
     {
-        Task<List<UserCacheModel>> GetAll(IList<string> logins = null);
-        Task<List<UserDataModel>> GetApiUsers();
-        Task<UserDataDetailModel> GetApiUserbyLogin(string login);
+        Task<List<UserCacheModel>> GetList();
+        Task<List<UserCacheModel>> GetList(IList<string> logins);
     }
 }

@@ -18,6 +18,7 @@ namespace GitHubClient.NUnitTests
     [TestFixture]
     public class UserControllerTests 
     {
+        private IDataDeserializer _dataDeserializer;
         private IMemoryCache _memCache;
         private IConfiguration _configuration;
         private IUserService _userService;
@@ -45,6 +46,7 @@ namespace GitHubClient.NUnitTests
             services.AddHttpClient<IGithubApiService, GithubApiService>();
             services.AddSingleton<JsonSerializer>();
             services.AddSingleton<ILog, LogNLog>();
+            services.AddSingleton<DataDeserializer>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
@@ -54,6 +56,7 @@ namespace GitHubClient.NUnitTests
             _memCache = serviceProvider.GetService<IMemoryCache>();
             _userService = serviceProvider.GetService<IUserService>();
             _logger = serviceProvider.GetService<ILog>();
+            _dataDeserializer = serviceProvider.GetService<DataDeserializer>();
         }
 
         [Test]
@@ -76,45 +79,11 @@ namespace GitHubClient.NUnitTests
         [Test]
         public async Task GetUsersAsync()
         {
-            _userController = new UserController( _configuration, _userService, _logger);
+            _userController = new UserController(_userService, _logger);
 
             var actionResult = await _userController.Get();
             var okResult = actionResult as OkObjectResult;
-            var outputData = okResult.Value as List<UserCacheModel>;
-
-            Assert.IsNotNull(okResult);
-            Assert.AreEqual(10, outputData.Count);
-            Assert.AreEqual(200, okResult.StatusCode);
-        }
-
-        [Test]
-        [TestCase("mojombo")]
-        [TestCase("defunkt")]
-        [TestCase("pjhyett")]
-        public async Task GetUsersWithLogin(string login)
-        {
-            _userController = new UserController(_configuration, _userService, _logger);
-
-            var loginList = new List<string>();
-            loginList.Add(login);
-
-            var actionResult = await _userController.Post(loginList);
-            var okResult = actionResult as OkObjectResult;
-            var outputData = okResult.Value as List<UserCacheModel>;
-
-            Assert.IsNotNull(okResult);
-            Assert.AreEqual(1, outputData.Count);
-            Assert.AreEqual(200, okResult.StatusCode);
-        }
-
-        [Test]
-        public async Task GetUsersWithEmptyLogin()
-        {
-            _userController = new UserController(_configuration, _userService, _logger);
-
-            var actionResult = await _userController.Post(null);
-            var okResult = actionResult as OkObjectResult;
-            var outputData = okResult.Value as List<UserCacheModel>;
+            var outputData = okResult.Value as List<GithubUser>;
 
             Assert.IsNotNull(okResult);
             Assert.AreEqual(10, outputData.Count);

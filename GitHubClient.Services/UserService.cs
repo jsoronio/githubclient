@@ -22,10 +22,11 @@ namespace GitHubClient.Services
         private readonly ILog _logger;
 
         private string _key = string.Empty;
+        private const int _keyExpiresIn = 240;
         private int _counter = 0;
         private int _maxUsers = 0;
 
-        private List<UserCacheModel> _userList;
+        private List<GithubUser> _userList;
 
         public UserService(IGithubApiService githubService, IMemoryCacheService cacheService, IConfiguration configuration, ILog logger)
         {
@@ -35,11 +36,11 @@ namespace GitHubClient.Services
             _key = _configuration["InMemoryCache:Key"];
             _maxUsers = Convert.ToInt32(_configuration["GitHub:MaxUsers"]);
             _gitApiService = githubService;
-            _userList = new List<UserCacheModel>();
+            _userList = new List<GithubUser>();
             _counter = 0;
         }
 
-        public async Task<List<UserCacheModel>> GetList()
+        public async Task<List<GithubUser>> GetList()
         {
             _logger.Information($"Checking existing memory cache with key - '{_key}'");
 
@@ -47,7 +48,7 @@ namespace GitHubClient.Services
             {
                 _logger.Information($"Fetching Users from existing memory cache");
 
-                return await GetTopUsersFromMemCache();
+                return await GetTopUsersFromMemoryCache();
             }
             else
             {
@@ -57,17 +58,10 @@ namespace GitHubClient.Services
             }
         }
 
-        public async Task<List<UserCacheModel>> GetList(IList<string> logins)
-        {
-            _logger.Information($"Fetching specified Users only from the exisiting Memory Cache or from the Github's Api endpoint");
-
-            return await GetUserList(logins.ToList());
-        }
-
         #region Private methods
-        private async Task<List<UserCacheModel>> GetTopUsersFromMemCache()
+        private async Task<List<GithubUser>> GetTopUsersFromMemoryCache()
         {
-            var userCacheList = new List<UserCacheModel>();
+            var userCacheList = new List<GithubUser>();
             var loginList = _cacheService.Get(_key);
 
             if (!string.IsNullOrEmpty(loginList))
@@ -78,19 +72,17 @@ namespace GitHubClient.Services
             return userCacheList;
         }
 
-        private async Task<List<UserCacheModel>> GetTopUsersFromGithubApi()
+        private async Task<List<GithubUser>> GetTopUsersFromGithubApi()
         {
-            var loginList = string.Empty;
-            var userList = await _gitApiService.GetList<UserDataModel>();
+            var logins = await _gitApiService.GetLogins();
+            var users = logins.Split(";").ToList();
 
-            loginList = String.Join(";", userList.Select(m => m.login).ToList());
+            _cacheService.Set(_key, logins, _keyExpiresIn);
 
-            _cacheService.Set(_key, loginList);
-
-            return await GetUserList(userList.Select(m => m.login).ToList());
+            return await GetUserList(users.Select(m => m).ToList());
         }
 
-        private async Task<List<UserCacheModel>> GetUserList(List<string> source)
+        private async Task<List<GithubUser>> GetUserList(List<string> source)
         {
             if (source != null && source.Any())
             {
@@ -110,25 +102,13 @@ namespace GitHubClient.Services
                 return _userList.OrderBy(m => m.name).ToList();
             }
 
-            return new List<UserCacheModel>();
-        }
-
-        private UserCacheModel UserCacheMapping(UserDataDetailModel model)
-        {
-            var userCache = new UserCacheModel();
-            userCache.company = model.company;
-            userCache.login = model.login;
-            userCache.name = model.name;
-            userCache.numberOfFollowers = model.followers;
-            userCache.numberOfPublicRepos = model.public_repos;
-
-            return userCache;
+            return new List<GithubUser>();
         }
 
         private void GetSingleUserFromMemCache(string login) 
         {
             var cacheObject = _cacheService.Get(login);
-            var userCache = JsonConvert.DeserializeObject<UserCacheModel>(cacheObject);
+            var userCache = JsonConvert.DeserializeObject<GithubUser>(cacheObject);
 
             if (!string.IsNullOrEmpty(userCache.name))
             {
@@ -139,13 +119,12 @@ namespace GitHubClient.Services
 
         private async Task GetSingleUserFromGithubApi(string login)
         {
-            var userDetail = await _gitApiService.GetSingle<UserDataDetailModel>(login);
-            var userCache = UserCacheMapping(userDetail);
+            var user = await _gitApiService.GetSingle(login);
 
-            if (!string.IsNullOrEmpty(userCache.name))
+            if (!string.IsNullOrEmpty(user.name))
             {
-                _cacheService.Set(login, JsonConvert.SerializeObject(userCache));
-                _userList.Add(userCache);
+                _cacheService.Set(login, JsonConvert.SerializeObject(user));
+                _userList.Add(user);
                 _counter++;
             }
         }

@@ -39,6 +39,7 @@ namespace GitHubClient
             services.AddHttpClient<IGithubApiService, GithubApiService>();
             services.AddSingleton<JsonSerializer>();
             services.AddSingleton<ILog, LogNLog>();
+            services.AddSingleton<DataDeserializer>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
@@ -50,8 +51,6 @@ namespace GitHubClient
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
-            //loggerFactory.AddFile("Logs/logger-{Date}.txt");
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

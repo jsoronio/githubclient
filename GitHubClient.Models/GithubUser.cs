@@ -2,7 +2,7 @@
 
 namespace GitHubClient.Models
 {
-    public class UserCacheModel
+    public class GithubUser
     {
         public string name { get; set; }
         public string login { get; set; }

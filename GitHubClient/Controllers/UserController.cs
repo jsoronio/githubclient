@@ -17,7 +17,7 @@ namespace GitHubClient.Controllers
         private readonly IUserService _userService;
         private readonly ILog _logger;
 
-        public UserController(IConfiguration config, IUserService userService, ILog logger) 
+        public UserController(IUserService userService, ILog logger) 
         {
             _userService = userService;
             _logger = logger;
@@ -29,19 +29,6 @@ namespace GitHubClient.Controllers
             _logger.Information("Receiving GET Request");
 
             return Ok(await _userService.GetList());
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Post(IList<string> logins)
-        {
-            _logger.Information("Receiving POST Request");
-
-            if (logins != null) {
-                _logger.Information($"Accepting POST Params - {JsonConvert.SerializeObject(logins)}");
-            }
-
-            return Ok(await _userService.GetList(logins));
         }
     }
 }

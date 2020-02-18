@@ -6,6 +6,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -16,7 +17,7 @@ namespace GitHubClient.Services
     public class GithubApiService : IGithubApiService
     {
         private readonly HttpClient _httpClient;
-        private readonly JsonSerializer _jsonSerializer;
+        private readonly DataDeserializer _dataDeserializer;
         private readonly IConfiguration _configuration;
         private readonly ILog _logger;
 
@@ -24,21 +25,19 @@ namespace GitHubClient.Services
         private string _clientId = string.Empty;
         private string _clientSecret = string.Empty;
 
-        public GithubApiService(HttpClient httpClient, JsonSerializer jsonSerializer, IConfiguration configuration, ILog logger) 
+        public GithubApiService(HttpClient httpClient, DataDeserializer dataDeserializer, IConfiguration configuration, ILog logger) 
         {
             _configuration = configuration;
             _logger = logger;
+            _httpClient = httpClient;
+            _dataDeserializer = dataDeserializer;
             _endpoint = _configuration["GitHub:UserEndPoint"];
             _clientId = _configuration["GitHub:ClientId"];
             _clientSecret = _configuration["GitHub:ClientSecret"];
-            _httpClient = httpClient;
-            _jsonSerializer = jsonSerializer;
         }
 
-        public async Task<List<T>> GetList<T>() where T : class
+        public async Task<string> GetLogins()
         {
-            var apiUserList = new List<T>();
-
             try
             {
                 _logger.Information("Sending GET Request to Github Api Endpoint");
@@ -59,7 +58,9 @@ namespace GitHubClient.Services
                     {
                         _logger.Information("Github Api: Successful");
 
-                        return _jsonSerializer.Deserialize<List<T>>(jsonTextReader);
+                        var jsonString = _dataDeserializer.DeserializeList(jsonTextReader);
+
+                        return String.Join(";", jsonString.Select(m => m).ToList());
                     }
                 }
             }
@@ -68,12 +69,12 @@ namespace GitHubClient.Services
                 _logger.Error(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
             }
 
-            return apiUserList;
+            return string.Empty;
         }
 
-        public async Task<T> GetSingle<T>(string login) where T : new()
+        public async Task<GithubUser> GetSingle(string login)
         {
-            var userDetail = new T();
+            var userDetail = new GithubUser();
 
             try
             {
@@ -95,7 +96,7 @@ namespace GitHubClient.Services
                     {
                         _logger.Information("Github Api: Successful");
 
-                        return _jsonSerializer.Deserialize<T>(jsonTextReader);
+                        return _dataDeserializer.DeserializeUser(jsonTextReader);
                     }
                 }
             }
@@ -118,12 +119,6 @@ namespace GitHubClient.Services
             request.Headers.Add("Connection", "keep-alive");
 
             return request;
-        }
-
-        private static string FormatJsonString(string jsonString)
-        {
-            JToken jt = JToken.Parse(jsonString);
-            return jt.ToString(Formatting.Indented);
         }
     }
 }

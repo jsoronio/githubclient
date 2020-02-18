@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -16,15 +18,17 @@ namespace GitHubClient.NUnitTests
     [TestFixture]
     public class UserServiceTests
     {
+        private IDataDeserializer _dataDeserializer;
         private IMemoryCache _memCache;
         private IMemoryCacheService _memCacheService;
         private IConfiguration _configuration;
         private IUserService _userService;
         private IGithubApiService _gitHubService;
         private ILog _logger;
+        private List<GithubUser> _result;
 
         [SetUp]
-        public void Setup()
+        public async Task Setup()
         {
             var relativeTargetProjectParentDir = "";
             var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
@@ -44,6 +48,7 @@ namespace GitHubClient.NUnitTests
             services.AddHttpClient<IGithubApiService, GithubApiService>();
             services.AddSingleton<JsonSerializer>();
             services.AddSingleton<ILog, LogNLog>();
+            services.AddSingleton<DataDeserializer>();
 
             services.AddControllers().AddNewtonsoftJson();
             services.AddMemoryCache();
@@ -55,60 +60,63 @@ namespace GitHubClient.NUnitTests
             _logger = serviceProvider.GetService<ILog>();
             _memCacheService = serviceProvider.GetService<IMemoryCacheService>();
             _gitHubService = serviceProvider.GetService<IGithubApiService>();
+            _dataDeserializer = serviceProvider.GetService<DataDeserializer>();
+
+            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
+            _result = await _userService.GetList();
         }
 
-        [Test]
-        public async Task GetTop10Users() {
-            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
+        [Test, Order(1)]
+        public void GetInitialTop10Users() 
+        {
+            Assert.IsNotNull(_result);
+            Assert.AreEqual(10, _result.Count);
+        }
 
+        [Test, Order(2)]
+        public async Task GetInMemoryCacheUsers()
+        {
             var result = await _userService.GetList();
 
             Assert.IsNotNull(result);
             Assert.AreEqual(10, result.Count);
-            Assert.IsInstanceOf<List<UserCacheModel>>(result);
         }
 
-        [Test]
-        [TestCase("mojombo", "defunkt")]
-        [TestCase("pjhyett", "ezmobius")]
-        public async Task GetUsersWithParams(string login1, string login2)
+        [Test, Order(3)]
+        public void CheckMemCacheStored()
         {
-            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
+            var logins = _memCacheService.Get(_configuration["InMemoryCache:Key"]);
 
-            var loginList = new List<string>();
-            loginList.Add(login1);
-            loginList.Add(login2);
-
-            var result = await _userService.GetList(loginList);
-
-            Assert.IsNotNull(result);
-            Assert.AreEqual(2, result.Count);
-            Assert.IsInstanceOf<List<UserCacheModel>>(result);
+            Assert.IsNotNull(logins);
+            Assert.IsTrue(logins.Split(";").Any());
+            Assert.IsTrue(logins.Split(";").ToList().Count() > 10);
         }
 
-        [Test]
-        public async Task CallGithubApiEndpoint()
+        [Test, Order(4)]
+        public void CheckIndividualUserKeysInMemoryCache()
         {
-            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
+            var logins = _memCacheService.Get(_configuration["InMemoryCache:Key"]);
 
-            var result = await _gitHubService.GetList<UserDataModel>();
+            Assert.IsNotNull(logins);
+            Assert.IsTrue(logins.Split(";").Any());
+            Assert.IsTrue(logins.Split(";").ToList().Count() > 10);
+                                                                               
+            foreach (var login in logins.Split(";").ToList())
+            {
+                if (!string.IsNullOrEmpty(login))
+                {
+                    var user = _memCacheService.Get(login);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<List<UserDataModel>>(result);
-        }
+                    if (!string.IsNullOrEmpty(user)) 
+                    {
+                        Assert.IsNotNull(user);
 
-        [Test]
-        [TestCase("mojombo")]
-        [TestCase("pjhyett")]
-        [TestCase("ezmobius")]
-        public async Task CallGithubApiEndpointWithLogin(string login)
-        {
-            _userService = new UserService(_gitHubService, _memCacheService, _configuration, _logger);
+                        var githubUser = JsonConvert.DeserializeObject<GithubUser>(user);
 
-            var result = await _gitHubService.GetSingle<UserDataDetailModel>(login);
-
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<UserDataDetailModel>(result);
+                        Assert.AreEqual(login, githubUser.login);
+                    }
+                }
+            }
         }
     }
 }

@@ -6,8 +6,8 @@ namespace GitHubClient.Services.Interface
 {
     public interface IMemoryCacheService
     {
-        int SlideDuration { get; set; }
         void Set(string key, string value);
+        void Set(string key, string value, int seconds);
         string Get(string key);
         bool CheckExists(string key);
     }

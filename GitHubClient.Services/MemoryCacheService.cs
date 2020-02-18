@@ -10,23 +10,15 @@ namespace GitHubClient.Services
 {
     public class MemoryCacheService : IMemoryCacheService
     {
+        private readonly int _slideDuration;
         private readonly IMemoryCache _cache;
         private readonly IConfiguration _configuration;
-        private readonly ILog _logger;
 
-        private string _key = string.Empty;
-        private string _endpoint = string.Empty;
-
-        public int SlideDuration { get; set; }
-
-        public MemoryCacheService(IMemoryCache cache, IConfiguration configuration, ILog logger)
+        public MemoryCacheService(IMemoryCache cache, IConfiguration configuration)
         {
             _cache = cache;
             _configuration = configuration;
-            _logger = logger;
-            _endpoint = _configuration["GitHub:UserEndPoint"];
-            _key = _configuration["InMemoryCache:Key"];
-            SlideDuration = Convert.ToInt32(_configuration["InMemoryCache:ExpiresIn"]);
+            _slideDuration = Convert.ToInt32(_configuration["InMemoryCache:ExpiresIn"]);
         }
 
         public bool CheckExists(string key)
@@ -55,25 +47,21 @@ namespace GitHubClient.Services
 
         public void Set(string key, string value)
         {
-            if (key != _key)
-            {
-                MemoryCacheEntryOptions cacheExpirationOptions = new MemoryCacheEntryOptions();  
-                cacheExpirationOptions.AbsoluteExpiration = DateTime.Now.AddSeconds(SlideDuration);
-                cacheExpirationOptions.SlidingExpiration = TimeSpan.FromSeconds(SlideDuration);
-                cacheExpirationOptions.RegisterPostEvictionCallback(TimeoutCallback, this);
-                //cacheExpirationOptions.Priority = CacheItemPriority.Normal;
-
-                _cache.Set(key, value, cacheExpirationOptions);
-            }
-            else
-            {
-                _cache.Set(key, value);
-            }
+            _cache.Set(key, value, SetMemoryCacheExpiry(_slideDuration));
         }
 
-        private static void TimeoutCallback(object key, object value, EvictionReason reason, object state)
+        public void Set(string key, string value, int seconds)
         {
+            _cache.Set(key, value, SetMemoryCacheExpiry(seconds));
+        }
 
+        private MemoryCacheEntryOptions SetMemoryCacheExpiry(int seconds) 
+        {
+            MemoryCacheEntryOptions cacheExpirationOptions = new MemoryCacheEntryOptions();
+            cacheExpirationOptions.AbsoluteExpiration = DateTime.Now.AddSeconds(seconds);
+            cacheExpirationOptions.SlidingExpiration = TimeSpan.FromSeconds(seconds);
+
+            return cacheExpirationOptions;
         }
     }
 }

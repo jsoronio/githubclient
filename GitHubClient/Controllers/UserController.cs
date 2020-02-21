@@ -3,10 +3,6 @@ using System.Threading.Tasks;
 using GitHubClient.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace GitHubClient.Controllers
 {
@@ -24,11 +20,15 @@ namespace GitHubClient.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get() 
+        [AllowAnonymous]
+        public async Task<IActionResult> Get(string logins) 
         {
             _logger.Information("Receiving GET Request");
 
-            return Ok(await _userService.GetList());
+            if (!string.IsNullOrEmpty(logins))
+                return Ok(await _userService.GetUserList(logins));
+            else
+                return BadRequest();
         }
     }
 }

@@ -8,7 +8,6 @@ namespace GitHubClient.Services.Interface
 {
     public interface IGithubApiService
     {
-        Task<string> GetLogins();
         Task<GithubUser> GetSingle(string login);
     }
 }

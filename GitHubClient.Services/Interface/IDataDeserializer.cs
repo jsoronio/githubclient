@@ -9,6 +9,5 @@ namespace GitHubClient.Services.Interface
     public interface IDataDeserializer
     {
         GithubUser DeserializeUser(JsonTextReader jsonTextReader);
-        List<string> DeserializeList(JsonTextReader jsonTextReader);
     }
 }

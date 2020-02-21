@@ -36,42 +36,6 @@ namespace GitHubClient.Services
             _clientSecret = _configuration["GitHub:ClientSecret"];
         }
 
-        public async Task<string> GetLogins()
-        {
-            try
-            {
-                _logger.Information("Sending GET Request to Github Api Endpoint");
-
-                string githubApi = $"https://{_endpoint}/users?client_id={_clientId}&client_secret={_clientSecret}";
-
-                _logger.Information($"[GET] {githubApi}");
-
-                var request = CreateRequest(githubApi);
-                var result = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead).ConfigureAwait(false);
-
-                _logger.Information($"Response Code: {result.StatusCode}");
-
-                using (var responseStream = await result.Content.ReadAsStreamAsync())
-                {
-                    using (var streamReader = new StreamReader(responseStream))
-                    using (var jsonTextReader = new JsonTextReader(streamReader))
-                    {
-                        _logger.Information("Github Api: Successful");
-
-                        var jsonString = _dataDeserializer.DeserializeList(jsonTextReader);
-
-                        return String.Join(";", jsonString.Select(m => m).ToList());
-                    }
-                }
-            }
-            catch (WebException exception)
-            {
-                _logger.Error(exception, $"Github Api Request encountered an exception error - Status Code ({exception.Status.ToString()})");
-            }
-
-            return string.Empty;
-        }
-
         public async Task<GithubUser> GetSingle(string login)
         {
             var userDetail = new GithubUser();

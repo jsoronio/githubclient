@@ -34,25 +34,20 @@ namespace GitHubClient.Services
             return exists;
         }
 
-        public string Get(string key)
+        public object Get(string key)
         {
-            string val;
+            object val;
             if (_cache.TryGetValue(key, out val))
             {
                 return val;
             }
 
-            return string.Empty;
+            return null;
         }
 
-        public void Set(string key, string value)
+        public void Set(string key, object value)
         {
             _cache.Set(key, value, SetMemoryCacheExpiry(_slideDuration));
-        }
-
-        public void Set(string key, string value, int seconds)
-        {
-            _cache.Set(key, value, SetMemoryCacheExpiry(seconds));
         }
 
         private MemoryCacheEntryOptions SetMemoryCacheExpiry(int seconds) 

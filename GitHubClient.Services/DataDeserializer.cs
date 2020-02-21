@@ -9,45 +9,20 @@ namespace GitHubClient.Services
 {
     public class DataDeserializer : IDataDeserializer
     {
-        public List<string> DeserializeList(JsonTextReader jsonTextReader)
-        {
-            var list = new List<string>();
-            var currentPropertyName = string.Empty;
-
-            while (jsonTextReader.Read())
-            {
-                switch (jsonTextReader.TokenType)
-                {
-                    case JsonToken.StartObject:
-                        continue;
-                    case JsonToken.EndObject:
-                        continue;
-                    case JsonToken.PropertyName:
-                        currentPropertyName = jsonTextReader.Value.ToString();
-                        continue;
-                    case JsonToken.String:
-                        switch (currentPropertyName)
-                        {
-                            case "login":
-                                list.Add(jsonTextReader.Value.ToString());
-                                continue;
-                        }
-                        continue;
-                    case JsonToken.Integer:
-                        continue;
-                }
-            }
-
-            return list;
-        }
-
         public GithubUser DeserializeUser(JsonTextReader jsonTextReader)
         {
-            var model = new GithubUser();
+            GithubUser model = null;
             var currentPropertyName = string.Empty;
 
             while (jsonTextReader.Read())
             {
+                var jsonValue = jsonTextReader.Value;
+                if (jsonValue != null && jsonValue.Equals("Not Found"))
+                {
+                    model = null;
+                    break;  
+                }
+
                 switch (jsonTextReader.TokenType)
                 {
                     case JsonToken.StartObject:
@@ -76,10 +51,10 @@ namespace GitHubClient.Services
                         switch (currentPropertyName)
                         {
                             case "followers":
-                                model.numberOfFollowers = int.Parse(jsonTextReader.Value.ToString());
+                                model.followers = int.Parse(jsonTextReader.Value.ToString());
                                 continue;
                             case "public_repos":
-                                model.numberOfPublicRepos = int.Parse(jsonTextReader.Value.ToString());
+                                model.publicRepos = int.Parse(jsonTextReader.Value.ToString());
                                 continue;
                         }
                         continue;

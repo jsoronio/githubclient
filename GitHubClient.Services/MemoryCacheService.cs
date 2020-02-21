@@ -25,7 +25,7 @@ namespace GitHubClient.Services
         {
             bool exists = false;
 
-            string val;
+            object val;
             if (_cache.TryGetValue(key, out val))
             {
                 exists = true;

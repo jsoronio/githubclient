@@ -34,7 +34,7 @@ namespace GitHubClient
 
             services.AddSingleton(Configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddSingleton<IMemoryCacheService, MemoryCacheService>();
+            services.AddScoped<IMemoryCacheService, MemoryCacheService>();
             services.AddScoped<IUserService, UserService>();
             services.AddHttpClient<IGithubApiService, GithubApiService>();
             services.AddSingleton<JsonSerializer>();
